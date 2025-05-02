@@ -1,0 +1,21 @@
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual-env folders & dotenv files
+env/
+*.env
+.venv/
+
+# Data (raw & processed)
+data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode workspace settings
+.vscode/
