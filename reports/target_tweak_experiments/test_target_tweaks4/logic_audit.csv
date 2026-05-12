@@ -1,7 +1,0 @@
-check,value
-post_event_rows,0
-failure_success_overlap_rows,0
-strict_distress_missed_by_failure_rows,0
-future_observation_count_lt3_rows,1615
-unknown_failure_rows,1489
-unknown_success_rows,1615

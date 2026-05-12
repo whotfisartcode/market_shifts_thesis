@@ -9,6 +9,8 @@ tmp/**
 .mplconfig/
 .vscode/
 ~$*
+notebooks/**
+docs/_redundant/**
 
 # Local data: keep manifests/samples in Git, not full datasets.
 data/raw/*
@@ -46,7 +48,12 @@ reports/data_quality/*.json
 # not redistributable GitHub artifacts.
 reports/literature/legal_full_text_pdfs/**
 reports/literature/legal_full_text_extracts/**
-docs/_redundant/00_system_junk/**
+reports/figures/legacy_plots/**
+reports/target_experiments/test_broader_targets*/**
+reports/target_tweak_experiments/test_target_tweaks*/**
+reports/target_tweak_experiments/feature_set_ablation/**
+reports/model_tuning/*/
+reports/model_tuning_advanced/*/
 
 # Local archive material is kept on disk but excluded from the clean package.
 _archive/**

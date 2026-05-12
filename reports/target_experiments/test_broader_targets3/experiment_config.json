@@ -1,8 +1,0 @@
-{
-  "folder": "test_broader_targets3",
-  "title": "Sector-relative underperformance",
-  "failure_target": "failure_pressure_sector_relative_next_4obs",
-  "success_target": "success_composite_sector_relative_next_4obs",
-  "failure_definition": "formal distress OR bottom-quartile future ROA within sector-year plus pressure evidence",
-  "success_definition": "sector-year above-median future ROA plus profitability and balance resilience; blocked by failure pressure"
-}

@@ -1,9 +1,0 @@
-{
-  "folder": "test_target_tweaks1",
-  "title": "Conservative v2 with stronger deterioration threshold",
-  "failure_target": "failure_pressure_conservative_v2_next_4obs",
-  "success_target": "success_resilience_quality_v2_next_4obs",
-  "tweak_summary": "Tightens deterioration threshold but allows one balance-stress signal with repeated losses.",
-  "failure_definition": "formal distress OR at least 3 future loss observations plus at least one serious stress/deterioration signal",
-  "success_definition": "profitability and resilience, plus either ROA/operating quality or low-stress balance sheet"
-}

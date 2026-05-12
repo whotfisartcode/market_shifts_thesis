@@ -1,9 +1,0 @@
-target,split,rows,known_rows,unknown_rows,positives,positive_share_known,firms_with_positive
-failure_pressure_profit_roa_next_4obs,all,29141,27652,1489,3189,0.11532619702010705,280
-failure_pressure_profit_roa_next_4obs,train,17197,17197,0,1694,0.09850555329417922,192
-failure_pressure_profit_roa_next_4obs,validation,6059,6043,16,904,0.14959457223233494,175
-failure_pressure_profit_roa_next_4obs,test,5885,4412,1473,591,0.13395285584768812,124
-success_quality_growth_next_4obs,all,29141,27526,1615,2230,0.08101431373973697,140
-success_quality_growth_next_4obs,train,17197,17164,33,1390,0.08098345374038686,109
-success_quality_growth_next_4obs,validation,6059,6012,47,488,0.08117099135063206,86
-success_quality_growth_next_4obs,test,5885,4350,1535,352,0.08091954022988505,70

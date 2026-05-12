@@ -1,6 +1,8 @@
-# Reproducibility Guide
+# Reproducibility
 
-This repository is the GitHub-ready package for the market-shifts thesis deliverables.
+This repository is a download-and-use package. The dashboard runs from the compact firm panel and report outputs included in GitHub.
+
+For the shortest instructions, see `QUICKSTART.md`.
 
 ## Included
 
@@ -10,6 +12,8 @@ This repository is the GitHub-ready package for the market-shifts thesis deliver
 - Model metrics, feature-importance summaries, target-lab outputs, tuning summaries, and dashboard screenshots under `reports/`
 - Current thesis documentation and bibliography under `docs/`
 - Small samples and schemas under `data/samples/`
+
+The exact dashboard inputs are listed in `DASHBOARD_INPUTS.md`.
 
 ## Excluded
 
@@ -32,10 +36,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Equivalent `make` command:
+
+```bash
+make setup
+```
+
 ## Run The Dashboard
 
 ```bash
 streamlit run app/dashboard.py
+```
+
+Equivalent `make` command:
+
+```bash
+make dashboard
 ```
 
 The dashboard expects the packaged panel at `data/github/firm_panel_v2.csv.gz` and report files under `reports/modeling/`, `reports/target_lab/`, `reports/target_experiments/`, `reports/target_tweak_experiments/`, `reports/model_tuning/`, and `reports/model_tuning_advanced/`.
@@ -46,6 +62,12 @@ Use the GitHub package smoke check to verify clone-level reproducibility from in
 
 ```bash
 python3 scripts/project_audit/github_package_smoke_check.py
+```
+
+Equivalent `make` command:
+
+```bash
+make check
 ```
 
 This checks imports, dashboard input files, the packaged panel/schema, selected report dependencies, and Python compilation for the dashboard and scripts.

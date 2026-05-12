@@ -1,9 +1,0 @@
-target,split,rows,known_rows,unknown_rows,positives,positive_share_known,firms_with_positive
-failure_pressure_sector_strict_next_4obs,all,29141,27652,1489,4704,0.17011427744828583,363
-failure_pressure_sector_strict_next_4obs,train,17197,17197,0,2557,0.1486887247775775,272
-failure_pressure_sector_strict_next_4obs,validation,6059,6043,16,1269,0.2099950355783551,235
-failure_pressure_sector_strict_next_4obs,test,5885,4412,1473,878,0.19900271985494106,206
-success_sector_quality_next_4obs,all,29141,27526,1615,4256,0.1546174525902783,231
-success_sector_quality_next_4obs,train,17197,17164,33,2599,0.1514215800512701,189
-success_sector_quality_next_4obs,validation,6059,6012,47,917,0.1525282767797738,138
-success_sector_quality_next_4obs,test,5885,4350,1535,740,0.17011494252873563,131

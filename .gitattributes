@@ -1,0 +1,7 @@
+*.csv.gz binary
+*.parquet binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.docx binary
+*.ipynb linguist-generated=true

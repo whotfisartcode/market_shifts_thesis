@@ -1,8 +1,0 @@
-{
-  "folder": "test_broader_targets2",
-  "title": "Balanced two-of-three pressure",
-  "failure_target": "failure_pressure_balanced_next_4obs",
-  "success_target": "success_composite_balanced_next_4obs",
-  "failure_definition": "formal distress OR at least two of profitability failure, balance/liquidity stress, and deterioration",
-  "success_definition": "at least two of profitability, balance resilience, and operating/ROA quality; blocked by failure pressure"
-}

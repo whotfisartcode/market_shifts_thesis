@@ -1,9 +1,0 @@
-{
-  "folder": "test_target_tweaks4",
-  "title": "Sector-adjusted strict pressure",
-  "failure_target": "failure_pressure_sector_strict_next_4obs",
-  "success_target": "success_sector_quality_next_4obs",
-  "tweak_summary": "Uses sector-relative future ROA thresholds to reduce bias against low-margin industries.",
-  "failure_definition": "formal distress OR bottom-quartile future ROA within sector plus repeated losses or deterioration",
-  "success_definition": "sector-above-median future ROA plus profitability and balance health"
-}
