@@ -1,0 +1,3 @@
+ticker,cik,sec_name,exchange,reason
+HES,4447,HESS CORP,NYSE,Historical ticker missing from current SEC ticker JSON after corporate action.
+K,55067,KELLANOVA,NYSE,Legacy ticker/name transition from Kellogg to Kellanova.

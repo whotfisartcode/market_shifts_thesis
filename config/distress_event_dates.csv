@@ -1,0 +1,51 @@
+ticker,event_date,event_type,event_label,verification_status,notes
+AAMRQ,2011-11-29,bankruptcy,formal_distress,source_verified_2026_05_07,AMR Corporation / American Airlines bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+ANRZQ,2015-08-03,bankruptcy,formal_distress,source_verified_2026_05_07,Alpha Natural Resources bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+ASNA,2020-07-23,bankruptcy,formal_distress,source_verified_2026_05_07,Ascena Retail Group bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+BBBY,2023-04-23,bankruptcy,formal_distress,source_verified_2026_05_07,Bed Bath & Beyond bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+BRDS,2023-12-20,bankruptcy,formal_distress,source_verified_2026_05_07,Bird Global bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+BTUUQ,2016-04-13,bankruptcy,formal_distress,source_verified_2026_05_07,Peabody Energy bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CANO,2024-02-04,bankruptcy,formal_distress,source_verified_2026_05_07,Cano Health bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CHK,2020-06-28,bankruptcy,formal_distress,source_verified_2026_05_07,Chesapeake Energy bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIT,2009-11-01,bankruptcy,formal_distress,source_verified_2026_05_07,CIT Group bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+EKDKQ,2012-01-19,bankruptcy,formal_distress,source_verified_2026_05_07,Eastman Kodak bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+FTR,2020-04-14,bankruptcy,formal_distress,source_verified_2026_05_07,Frontier Communications bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+GTATQ,2014-10-06,bankruptcy,formal_distress,source_verified_2026_05_07,GT Advanced Technologies bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+HTZ,2020-05-22,bankruptcy,formal_distress,source_verified_2026_05_07,Hertz Global Holdings bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+JCP,2020-05-15,bankruptcy,formal_distress,source_verified_2026_05_07,J. C. Penney bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+JOAN,2024-03-18,bankruptcy,formal_distress,source_verified_2026_05_07,JOANN bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+LINEQ,2016-05-11,bankruptcy,formal_distress,source_verified_2026_05_07,LINN Energy bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+NPCMQ,2020-07-31,bankruptcy,formal_distress,source_verified_2026_05_07,Noble Corporation bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+PGNPQ,2019-01-29,bankruptcy,formal_distress,source_verified_2026_05_07,PG&E Corporation bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+PIRRQ,2020-02-17,bankruptcy,formal_distress,source_verified_2026_05_07,Pier 1 Imports bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+PRTY,2023-01-17,bankruptcy,formal_distress,source_verified_2026_05_07,Party City Holdco bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+PTRA,2023-08-07,bankruptcy,formal_distress,source_verified_2026_05_07,Proterra bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+REV,2022-06-15,bankruptcy,formal_distress,source_verified_2026_05_07,Revlon bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+RIDE,2023-06-27,bankruptcy,formal_distress,source_verified_2026_05_07,Lordstown Motors bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+SDC,2023-09-29,bankruptcy,formal_distress,source_verified_2026_05_07,SmileDirectClub bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+SHLDQ,2018-10-15,bankruptcy,formal_distress,source_verified_2026_05_07,Sears Holdings bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+SI,2023-03-08,liquidation_distress,formal_distress,source_verified_2026_05_07,Silvergate Capital / Silvergate Bank liquidation_distress event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+SIVB,2023-03-10,bank_failure,formal_distress,source_verified_2026_05_07,Silicon Valley Bank bank_failure event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+SUNEQ,2016-04-21,bankruptcy,formal_distress,source_verified_2026_05_07,SunEdison bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+TOYRF,2017-09-18,bankruptcy,formal_distress,source_verified_2026_05_07,Toys R Us bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+TUES,2020-05-27,bankruptcy,formal_distress,source_verified_2026_05_07,Tuesday Morning bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+TUP,2024-09-17,bankruptcy,formal_distress,source_verified_2026_05_07,Tupperware Brands bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+UCIHQ,2016-04-29,bankruptcy,formal_distress,source_verified_2026_05_07,Ultra Petroleum bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+WE,2023-11-06,bankruptcy,formal_distress,source_verified_2026_05_07,WeWork bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+WLL,2020-04-01,bankruptcy,formal_distress,source_verified_2026_05_07,Whiting Petroleum bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+WLTGQ,2015-07-15,bankruptcy,formal_distress,source_verified_2026_05_07,Walter Energy bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+YELL,2023-08-06,bankruptcy,formal_distress,source_verified_2026_05_07,Yellow Corporation bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0000084129,2023-10-15,bankruptcy,formal_distress,source_verified_2026_05_07,Rite Aid bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0000867773,2024-08-05,bankruptcy,formal_distress,source_verified_2026_05_07,SunPower bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0001008848,2024-04-01,bankruptcy,formal_distress,source_verified_2026_05_07,Acorda Therapeutics bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0000077281,2023-12-10,bankruptcy,formal_distress,source_verified_2026_05_07,PREIT bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0001223389,2024-07-23,bankruptcy,formal_distress,source_verified_2026_05_07,Conn's bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0000814549,2023-12-17,bankruptcy,formal_distress,source_verified_2026_05_07,Ebix bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+CIK0000890447,2024-09-24,bankruptcy,formal_distress,source_verified_2026_05_07,Vertex Energy bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+UNTC,2020-05-22,bankruptcy,formal_distress,source_verified_2026_05_07,Unit Corporation bankruptcy event date source-verified on 2026-05-07; see config/distress_event_source_provenance.csv.
+AMC,2020-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.
+BYND,2022-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.
+CVNA,2022-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.
+NVAX,2022-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.
+PTON,2022-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.
+UPST,2022-12-31,near_distress,near_distress,initial_seed,Near-distress marker only; not used as formal distress target.

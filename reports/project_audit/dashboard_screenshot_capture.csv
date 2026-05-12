@@ -1,0 +1,13 @@
+screenshot,status,notes
+overview.png,PASS,Overview outcome composition and target coverage.
+data_coverage.png,PASS,Data coverage tab.
+models_distress.png,PASS,Models tab for strict distress benchmark.
+models_failure_pressure.png,PASS,Models tab for broader failure-pressure target.
+models_success_resilience.png,PASS,Models tab for success/resilience target.
+models_recovery_secondary.png,PASS,Models tab for validated secondary recovery target.
+target_lab_overview.png,PASS,Target Lab production coverage and calibration view.
+target_lab_recovery_reasons.png,PASS,Target Lab recovery reason-code and feature evidence view.
+firm_explorer.png,PASS,Firm Explorer financial metrics.
+macro_compare_training_baseline.png,PASS,Macro comparison view with standardized chart visible.
+artifact_notes.png,PASS,Artifact notes and caveats.
+[console],PASS,Only known benign Vega-Lite render warnings captured (132); screenshots above passed.

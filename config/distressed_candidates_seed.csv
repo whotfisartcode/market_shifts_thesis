@@ -1,0 +1,34 @@
+ticker,company,event_year,event_type,priority,notes
+LEHMQ,Lehman Brothers Holdings Inc.,2008,chapter_11,high,Large financial crisis bankruptcy; use with financial-sector caveats.
+WAMUQ,Washington Mutual Inc.,2008,chapter_11,high,Major bank failure and bankruptcy; financial-sector ratios may need separate handling.
+CIT,CIT Group Inc.,2009,chapter_11,medium,Financial crisis restructuring; later emerged.
+GMGMQ,General Motors Corp.,2009,chapter_11,high,Old GM bankruptcy entity; confirm historical ticker/CIK during SEC matching.
+EKDKQ,Eastman Kodak Co.,2012,chapter_11,medium,Industrial/technology restructuring; emerged later.
+AAMRQ,AMR Corp.,2011,chapter_11,medium,American Airlines parent bankruptcy before merger.
+MFGLQ,MF Global Holdings Ltd.,2011,chapter_11,medium,Financial-sector distress case; use with caution.
+GTATQ,GT Advanced Technologies Inc.,2014,chapter_11,medium,Technology/manufacturing bankruptcy.
+BTUUQ,Peabody Energy Corp.,2016,chapter_11,medium,Energy-sector downturn case.
+WLTGQ,Walter Energy Inc.,2015,chapter_11,medium,Coal-sector bankruptcy.
+ANRZQ,Alpha Natural Resources Inc.,2015,chapter_11,medium,Coal-sector bankruptcy.
+LINEQ,Linn Energy LLC,2016,chapter_11,medium,Energy-sector bankruptcy; entity structure may differ from corporations.
+UCIHQ,Ultra Petroleum Corp.,2016,chapter_11,medium,Energy-sector bankruptcy; verify SEC coverage.
+SUNEQ,SunEdison Inc.,2016,chapter_11,medium,Renewable energy bankruptcy.
+SHLDQ,Sears Holdings Corp.,2018,chapter_11,high,Retail distress and bankruptcy.
+TOYRF,Toys R Us Inc.,2017,chapter_11,low,Private/limited public-data complications; likely exclude unless SEC coverage works.
+PGNPQ,PG&E Corp,2019,chapter_11,medium,Utility bankruptcy/restructuring; later emerged.
+PIRRQ,Pier 1 Imports Inc.,2020,chapter_11,medium,Retail bankruptcy.
+JCPNQ,J. C. Penney Co. Inc.,2020,chapter_11,medium,Retail bankruptcy.
+HTZ,The Hertz Corp.,2020,chapter_11,medium,COVID-era bankruptcy and emergence; ticker continuity needs checking.
+CHKAQ,Chesapeake Energy Corp.,2020,chapter_11,medium,Energy-sector bankruptcy.
+WLL,Whiting Petroleum Corp.,2020,chapter_11,medium,Energy-sector bankruptcy; later M&A/ticker changes.
+VALPQ,Valaris plc,2020,chapter_11,medium,Energy services bankruptcy.
+NPCMQ,Noble Corp.,2020,chapter_11,medium,Offshore drilling bankruptcy.
+HERTZ,The Hertz Corp historical entity,2020,chapter_11,low,Alias row for name matching; remove if duplicate after CIK resolution.
+REVRQ,Revlon Inc.,2022,chapter_11,medium,Consumer products bankruptcy.
+BBBYQ,Bed Bath & Beyond Inc.,2023,chapter_11,high,Retail bankruptcy; useful recent failure example.
+TUP,Tupperware Brands Corp.,2024,chapter_11,medium,Consumer products bankruptcy; verify latest available SEC quarters.
+WEWKQ,WeWork Inc.,2023,chapter_11,medium,Real estate/services bankruptcy; history is short.
+SVBFG,SVB Financial Group,2023,chapter_11,high,Bank holding company after Silicon Valley Bank failure; financial-sector caveats.
+FRCB,First Republic Bank,2023,receivership_delisting,medium,Bank failure/receivership; may not fit corporate-bankruptcy target.
+VORBQ,Virgin Orbit Holdings Inc.,2023,chapter_11,medium,Recent public-company bankruptcy; short history after SPAC.
+RIDEQ,Lordstown Motors Corp.,2023,chapter_11,medium,Recent public EV bankruptcy; short history.

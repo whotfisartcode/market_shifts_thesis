@@ -1,0 +1,16 @@
+check,status,detail
+load_github_panel,PASS,"31702 rows, 190 columns"
+core_github_content_equal,PASS,True
+schema_matches_panel,PASS,schema_rows=190
+import_pandas,PASS,
+import_numpy,PASS,
+import_pyarrow,PASS,
+import_altair,PASS,
+import_sklearn,PASS,
+import_streamlit,PASS,
+import_xgboost,PASS,
+import_lightgbm,PASS,
+compile_project_scripts,PASS,
+lightweight_model_fit,PASS,"rows=2858, accuracy=0.885"
+dashboard_file_exists,PASS,app/dashboard.py
+dashboard_runtime_start,PASS,"screenshot_report=reports/project_audit/dashboard_screenshot_capture.csv, failures=0"

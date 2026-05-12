@@ -1,0 +1,8 @@
+{
+  "folder": "test_broader_targets1",
+  "title": "Loose broad economic pressure",
+  "failure_target": "failure_pressure_loose_next_4obs",
+  "success_target": "success_composite_loose_next_4obs",
+  "failure_definition": "formal distress OR repeated future losses OR repeated future unhealthy state",
+  "success_definition": "at least two of profitability, resilience, and quality components; blocked by failure pressure"
+}

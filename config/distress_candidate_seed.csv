@@ -1,0 +1,31 @@
+last_ticker,company_name_pattern,distress_type,event_year,priority,notes
+BBBY,BED BATH,bankruptcy,2023,high,Major retail bankruptcy; useful non-survivor case if SEC coverage exists.
+RIDE,LORDSTOWN,bankruptcy,2023,high,EV/SPAC failure case.
+WE,WEWORK,bankruptcy,2023,high,Office/real-estate linked distress case.
+YELL,YELLOW CORP,bankruptcy,2023,high,Transportation/logistics bankruptcy.
+PRTY,PARTY CITY,bankruptcy,2023,high,Consumer discretionary bankruptcy.
+REV,REVLON,bankruptcy,2022,high,Consumer products bankruptcy.
+HTZ,HERTZ,bankruptcy,2020,high,Large public-company bankruptcy and recovery case.
+CHK,CHESAPEAKE ENERGY,bankruptcy,2020,high,Energy bankruptcy; useful macro/commodity stress case.
+WLL,WHITING PETROLEUM,bankruptcy,2020,medium,Energy bankruptcy; may require legacy ticker handling.
+JCP,J C PENNEY,bankruptcy,2020,high,Retail bankruptcy; older filings may need pre-2020 coverage.
+FTR,FRONTIER COMMUNICATIONS,bankruptcy,2020,medium,Telecom bankruptcy; legacy ticker handling likely needed.
+ASNA,ASCENA RETAIL,bankruptcy,2020,medium,Retail bankruptcy; useful if quarterly SEC coverage is sufficient.
+TUES,TUESDAY MORNING,bankruptcy,2020,medium,Retail bankruptcy; smaller reporting coverage may be thin.
+TUP,TUPPERWARE,bankruptcy,2024,high,Recent public-company bankruptcy.
+JOAN,JOANN,bankruptcy,2024,high,Recent retail bankruptcy; coverage depends on listing history.
+VORB,VIRGIN ORBIT,bankruptcy,2023,medium,SPAC/space-sector bankruptcy; shorter history.
+BRDS,BIRD GLOBAL,bankruptcy,2023,medium,Micro-mobility bankruptcy; shorter history.
+PTRA,PROTERRA,bankruptcy,2023,medium,EV/battery bankruptcy; shorter history.
+SDC,SMILEDIRECTCLUB,bankruptcy,2023,medium,Healthcare/consumer bankruptcy; shorter history.
+CANO,CANO HEALTH,bankruptcy,2024,medium,Healthcare bankruptcy; useful if filings are available.
+FRC,FIRST REPUBLIC,bank_failure,2023,high,Bank failure; treat separately from non-financial corporate bankruptcy.
+SIVB,SVB FINANCIAL,bank_failure,2023,high,Bank failure; financial-sector stress case.
+SBNY,SIGNATURE BANK,bank_failure,2023,high,Bank failure; financial-sector stress case.
+SI,SILVERGATE CAPITAL,liquidation_distress,2023,medium,Crypto-bank liquidation/distress case.
+CVNA,CARVANA,near_distress,2022,medium,Severe distress but survived; useful borderline class.
+AMC,AMC ENTERTAINMENT,near_distress,2020,medium,Severe distress but survived; meme-stock confounding should be documented.
+PTON,PELOTON,near_distress,2022,medium,Post-pandemic drawdown/distress but survived.
+BYND,BEYOND MEAT,near_distress,2022,medium,Profitability and demand shock distress candidate.
+UPST,UPSTART,near_distress,2022,medium,Macro/credit-cycle sensitivity candidate.
+NVAX,NOVAVAX,near_distress,2022,medium,Biotech revenue cliff/distress candidate.

@@ -1,0 +1,6 @@
+missingindicator_total_liabilities origin
+
+The raw panel does not contain a column named missingindicator_total_liabilities.
+It is generated inside the sklearn preprocessing pipeline by SimpleImputer(add_indicator=True).
+The indicator equals 1 when total_liabilities is missing before median imputation.
+It can be useful for predictive performance, but it is not an SEC accounting variable and must not be interpreted as a direct economic factor.

@@ -1,0 +1,8 @@
+gap_id,literature_stream,what_prior_work_does_or_misses,thesis_response
+G1,Mature bankruptcy-prediction literature,"Many sources predict bankruptcy or default, so the thesis should not claim novelty in bankruptcy prediction itself.","Frame novelty around audited panel construction, target hierarchy, and artifact translation."
+G2,Narrow legal-event target,Strict bankruptcy labels are clean but rare and can underrepresent earlier deterioration.,Use strict distress as benchmark and broader financial pressure as the main failure-factor target.
+G3,Validation weakness,A common weakness in predictive studies is validation that does not reflect deployment time.,Use prediction_date and temporal test windows; describe leakage controls.
+G4,Macro context gap,"Firm fundamentals dominate many models, while macro/credit context is often separate or underinterpreted.",Add FRED macro/regime/event overlays as contextual market-shift fields.
+G5,Interpretability gap,Model performance alone is weak for business analytics and defense.,"Use feature groups, feature importance, and dashboard exploration, while avoiding causal overclaiming."
+G6,Missingness and accounting data integrity,"SEC filings have missing tags, changing XBRL usage, and flow/balance timing issues.",Treat missingness explicitly and audit source/qtrs/null behavior.
+G7,Artifact gap,Many studies end at metrics and tables.,Deliver a Streamlit dashboard and GitHub-ready panel/package as practical output.

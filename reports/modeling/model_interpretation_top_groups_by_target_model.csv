@@ -1,0 +1,42 @@
+target,model,feature_group,importance,importance_share_ex_missingness
+distress_next_4q,gradient_boosting,Accounting fundamentals,0.5199995785910453,0.5323568893075066
+distress_next_4q,gradient_boosting,Firm trend / deterioration,0.2728993102618638,0.2793845108467396
+distress_next_4q,gradient_boosting,Financial ratios,0.1627056039018585,0.1665721526174796
+distress_next_4q,gradient_boosting,Industry / sector,0.0107969430971995,0.0110535224986704
+distress_next_4q,gradient_boosting,Macro conditions,0.0103861084352201,0.0106329247296036
+distress_next_4q,logistic_l2,Macro conditions,21.842978740396116,0.3092269833826754
+distress_next_4q,logistic_l2,Accounting fundamentals,17.892611655707814,0.2533023720294977
+distress_next_4q,logistic_l2,Industry / sector,14.417451285526116,0.2041051736613588
+distress_next_4q,logistic_l2,Firm trend / deterioration,8.37604107451197,0.1185780540714727
+distress_next_4q,logistic_l2,Financial ratios,8.108280456643739,0.1147874168549951
+distress_next_4q,random_forest,Financial ratios,0.2754051203459481,0.3633313157872435
+distress_next_4q,random_forest,Firm trend / deterioration,0.2674697419462594,0.3528624782013377
+distress_next_4q,random_forest,Accounting fundamentals,0.2052557886537849,0.2707860175978214
+distress_next_4q,random_forest,Industry / sector,0.0098693022075571,0.0130201884135972
+failure_pressure_conservative_v2_next_4obs,gradient_boosting,Accounting fundamentals,0.6452417839252591,0.6719510567050866
+failure_pressure_conservative_v2_next_4obs,gradient_boosting,Firm trend / deterioration,0.2092395237778927,0.2179008282007201
+failure_pressure_conservative_v2_next_4obs,gradient_boosting,Industry / sector,0.0434936941779632,0.0452940812126259
+failure_pressure_conservative_v2_next_4obs,gradient_boosting,Financial ratios,0.0401092534908104,0.041769544282836
+failure_pressure_conservative_v2_next_4obs,gradient_boosting,Macro conditions,0.0221669079928641,0.0230844895987312
+failure_pressure_conservative_v2_next_4obs,logistic_l2,Macro conditions,11.728146495195707,0.4320581424239365
+failure_pressure_conservative_v2_next_4obs,logistic_l2,Industry / sector,7.00294088756436,0.2579842972310349
+failure_pressure_conservative_v2_next_4obs,logistic_l2,Financial ratios,3.906779255501396,0.14392349112315
+failure_pressure_conservative_v2_next_4obs,logistic_l2,Accounting fundamentals,2.020569674412972,0.0744366196758048
+failure_pressure_conservative_v2_next_4obs,logistic_l2,Firm trend / deterioration,1.930263360100928,0.071109787219645
+failure_pressure_conservative_v2_next_4obs,random_forest,Accounting fundamentals,0.2919427496749795,0.3689376639997831
+failure_pressure_conservative_v2_next_4obs,random_forest,Firm trend / deterioration,0.2735913508684012,0.3457463971696767
+failure_pressure_conservative_v2_next_4obs,random_forest,Financial ratios,0.216204893756782,0.2732252420611653
+failure_pressure_conservative_v2_next_4obs,random_forest,Industry / sector,0.0095674462240313,0.0120906967693747
+success_resilience_next_4q,gradient_boosting,Financial ratios,0.537117041493241,0.5517717984505414
+success_resilience_next_4q,gradient_boosting,Accounting fundamentals,0.2462451002794066,0.2529636770843582
+success_resilience_next_4q,gradient_boosting,Firm trend / deterioration,0.1667194048654859,0.1712681943650277
+success_resilience_next_4q,gradient_boosting,Industry / sector,0.0233590007068865,0.0239963301000726
+success_resilience_next_4q,logistic_l2,Accounting fundamentals,8.626216397780977,0.4017517045544815
+success_resilience_next_4q,logistic_l2,Industry / sector,5.11158567338458,0.2380636147484998
+success_resilience_next_4q,logistic_l2,Financial ratios,4.465712092683361,0.2079831252258661
+success_resilience_next_4q,logistic_l2,Firm trend / deterioration,1.8449468720163693,0.0859253369571977
+success_resilience_next_4q,logistic_l2,Macro conditions,1.4230505967908376,0.0662762185139547
+success_resilience_next_4q,random_forest,Financial ratios,0.3508462719834648,0.4322101249005846
+success_resilience_next_4q,random_forest,Firm trend / deterioration,0.2359420095016597,0.290658711633149
+success_resilience_next_4q,random_forest,Accounting fundamentals,0.2126519886125976,0.2619675621433999
+success_resilience_next_4q,random_forest,Industry / sector,0.0123090429572768,0.0151636013228665

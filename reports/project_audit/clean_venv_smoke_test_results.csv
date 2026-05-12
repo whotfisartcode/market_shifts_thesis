@@ -1,0 +1,14 @@
+check,status,detail
+python_executable,INFO,/Library/Frameworks/Python.framework/Versions/3.12/bin/python3
+import_pandas,PASS,
+import_numpy,PASS,
+import_pyarrow,PASS,
+import_altair,PASS,
+import_sklearn,PASS,
+import_streamlit,PASS,
+import_xgboost,PASS,
+import_lightgbm,PASS,
+load_core_panel,PASS,"(31702, 190)"
+load_github_panel,PASS,"(31702, 190)"
+core_github_equal,PASS,True
+compile_scripts_and_dashboard,PASS,

@@ -1,0 +1,9 @@
+{
+  "folder": "test_target_tweaks2",
+  "title": "Profitability and ROA decline pressure",
+  "failure_target": "failure_pressure_profit_roa_next_4obs",
+  "success_target": "success_quality_growth_next_4obs",
+  "tweak_summary": "Focuses on profitability failure plus average future ROA or operating-margin weakness.",
+  "failure_definition": "formal distress OR repeated future losses with weak future ROA/operating margin and at least one pressure signal",
+  "success_definition": "positive profitability, quality ROA/operating margin, acceptable leverage, and non-negative revenue or asset growth"
+}

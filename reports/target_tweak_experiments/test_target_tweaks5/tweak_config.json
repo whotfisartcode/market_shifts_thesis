@@ -1,0 +1,9 @@
+{
+  "folder": "test_target_tweaks5",
+  "title": "Component-score targets",
+  "failure_target": "failure_pressure_score3_next_4obs",
+  "success_target": "success_score3_next_4obs",
+  "tweak_summary": "Uses explicit component scores for dashboard-friendly success/failure drivers.",
+  "failure_definition": "formal distress OR at least 3 of 5 failure-pressure components",
+  "success_definition": "at least 3 of 5 success-quality components and no score-based failure"
+}

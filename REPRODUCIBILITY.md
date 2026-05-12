@@ -1,0 +1,72 @@
+# Reproducibility Guide
+
+This repository is the GitHub-ready package for the market-shifts thesis deliverables.
+
+## Included
+
+- Streamlit dashboard: `app/dashboard.py`
+- Dashboard data package: `data/github/firm_panel_v2.csv.gz`, `data/github/firm_panel_v2.parquet`, and `data/github/firm_panel_v2_schema.csv`
+- Panel-construction, data-quality, modeling, and documentation scripts under `scripts/`
+- Model metrics, feature-importance summaries, target-lab outputs, tuning summaries, and dashboard screenshots under `reports/`
+- Current thesis documentation and bibliography under `docs/`
+- Small samples and schemas under `data/samples/`
+
+## Excluded
+
+- Raw SEC Financial Statement Data Set ZIPs under `data/raw/sec_fsd_zips/`
+- Local FRED downloads under `data/raw/fred/`
+- Large processed/interim tables under `data/processed/` and `data/interim/`
+- Local trained `joblib` model binaries under `models/`
+- Full-text literature PDFs and extracted full-text files under `reports/literature/legal_full_text_*`
+- Local caches, temporary files, and editor metadata
+
+The dashboard does not require the excluded raw data or model binaries. It reads the compact GitHub panel and exported modeling/report artifacts.
+
+## Setup
+
+Run from the repository root:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Run The Dashboard
+
+```bash
+streamlit run app/dashboard.py
+```
+
+The dashboard expects the packaged panel at `data/github/firm_panel_v2.csv.gz` and report files under `reports/modeling/`, `reports/target_lab/`, `reports/target_experiments/`, `reports/target_tweak_experiments/`, `reports/model_tuning/`, and `reports/model_tuning_advanced/`.
+
+## Smoke Check
+
+Use the GitHub package smoke check to verify clone-level reproducibility from included files:
+
+```bash
+python3 scripts/project_audit/github_package_smoke_check.py
+```
+
+This checks imports, dashboard input files, the packaged panel/schema, selected report dependencies, and Python compilation for the dashboard and scripts.
+
+## Full Raw Rebuild
+
+A full raw-data rebuild is heavier than the GitHub package because it requires official SEC quarterly ZIP files. Place those ZIPs in `data/raw/sec_fsd_zips/`, download FRED inputs, then run:
+
+```bash
+python3 scripts/data/download_fred_series.py
+python3 scripts/sec_fsd/index_submissions.py
+python3 scripts/sec_fsd/match_distress_candidates.py
+python3 scripts/sec_fsd/build_universe_v2.py
+python3 scripts/sec_fsd/build_panel_v2.py
+python3 scripts/modeling/train_panel_v2_models.py --target distress_next_4q
+python3 scripts/modeling/train_panel_v2_models.py --target failure_pressure_conservative_v2_next_4obs
+python3 scripts/modeling/train_panel_v2_models.py --target success_resilience_next_4q
+python3 scripts/modeling/promote_validated_secondary_targets.py
+python3 scripts/modeling/run_panel_v2_ablation.py
+python3 scripts/modeling/make_panel_v2_analysis_outputs.py
+python3 scripts/modeling/feature_contribution_summary.py
+```
+
+See `README.md`, `docs/DATA_MANIFEST.md`, and `docs/PANEL_DATA_ARCHITECTURE_AND_EXPANSION.md` for the detailed project map.

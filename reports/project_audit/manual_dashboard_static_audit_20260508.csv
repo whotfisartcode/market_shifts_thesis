@@ -1,0 +1,7 @@
+area,status,evidence
+financial_dashboard_coverage,PASS,dashboard=63; schema_usable=63; missing=[]
+macro_dashboard_coverage,PASS,dashboard_chartable=68; schema_chartable=68; missing=[]
+global_event_names_text_context,PASS,"`global_event_names` is treated as readable text context, not as a numeric chart metric."
+target_separation,PASS,Targets are shown in a separate timeline tab; firm metrics use FIRM_METRIC_GROUPS.
+standardization_disclosure,PASS,"Dashboard exposes selected-window, filtered-panel, and training-period standardization baselines."
+artifact_caveats,PASS,Artifact tab contains thesis story and caveat controls.

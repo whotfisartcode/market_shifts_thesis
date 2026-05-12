@@ -1,0 +1,10 @@
+area,status,note
+structural_readiness,PASS,"Files load, scripts compile, panel package is internally consistent."
+prediction_timing,PASS,prediction_date uses SEC filing date.
+leakage_control,PASS,Feature blacklist audit passes.
+strict_distress_event_dates,PASS,Current formal strict-distress rows have source-provenance records; near-distress rows remain context only.
+validated_secondary_targets,PASS,"Four secondary production targets passed construction, leakage, temporal-validation, calibration/ranking, and model-output consistency checks."
+sec_concept_mapping,PASS_WITH_CAVEATS,Mapping is documented and sanity-audited; not perfect taxonomy.
+missingness,PASS_WITH_CAVEATS,Missingness is material and must be disclosed.
+model_validity,PASS_WITH_CAVEATS,Temporal validation and robustness exist; not causal proof.
+dashboard_evidence,PASS_WITH_CAVEATS,Dashboard screenshots exist; screenshot report may include non-blocking chart-library warnings.

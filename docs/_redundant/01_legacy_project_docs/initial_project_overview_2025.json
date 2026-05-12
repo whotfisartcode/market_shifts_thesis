@@ -1,0 +1,105 @@
+{
+  "project_title": "Navigating Market Shifts: Predictive Insights into Success and Failure Factors Across Industries",
+  "objective": "Determine why companies succeed or fail using predictive analytics on a cross-industry dataset, identify early warning signals, and deliver actionable strategic insights.",
+  "data_types": {
+    "company": {
+      "structured_financial": ["revenue_growth", "debt_to_equity", "R&D_spending", "market_share"],
+      "operational": ["inventory_turnover", "supply_chain_efficiency", "production_outputs"],
+      "qualitative_text": ["case_studies", "WEF_reports", "academic_papers", "leadership_interviews"],
+      "HR": ["workforce_demographics", "employee_turnover", "engagement_scores"],
+      "innovation_tech": ["patent_counts", "digital_transformation_investment", "tech_adoption_speed"],
+      "ESG": ["governance_ratings", "CSR_scores"],
+      "external_factors": ["regulatory_changes", "political_stability", "supply_chain_disruptions"],
+      "graph_image": ["market_trends_charts", "ESG_score_plots", "financial_charts"]
+    },
+    "world": {
+      "global_fiscal": ["global_liquidity_index", "dollar_index", "key_interest_rates"],
+      "macro_event": ["political_events", "policy_changes", "global_trends"],
+      "time_series": ["chronological_alignment_with_company_data"]
+    }
+  },
+  "compartmentalization": {
+    "company_data": "Analyzed both at individual (case studies) and aggregated (industry mean) levels",
+    "world_data": "Contextual layer aligned in time series",
+    "time_dimension": "Synchronize all datasets quarterly to assess lagged effects"
+  },
+  "analysis_strategy": {
+    "individual_vs_aggregated": "Use hierarchical multilevel models (Level 1: individual companies; Level 2: industry aggregates)",
+    "hierarchical_modeling": "Capture unique company behaviors and general cross-industry trends"
+  },
+  "artifact_options": [
+    {
+      "type": "Early-Warning Dashboard",
+      "description": "Streamlit app with composite success gauge, SHAP explanations, and world-fiscal timeline overlay"
+    },
+    {
+      "type": "Python Package",
+      "name": "marketshift_predictor",
+      "description": "pip-installable code for data prep and .fit()/ .predict() API"
+    },
+    {
+      "type": "Citable Dataset",
+      "description": "Publish cleaned, time-aligned multi-modal panel on Zenodo with data descriptor"
+    }
+  ],
+  "success_metrics": {
+    "survival_flag": "1 if listed ≥ 5 years, else 0",
+    "ROA_KPI": "1 if average ROA > industry median over window, else 0",
+    "market_share_KPI": "1 if market share increases then holds ±1ppt for 2 years, else 0",
+    "composite_score": "C = (S + R + M) / 3 (equal weights) or PCA-derived weights"
+  },
+  "modeling_strategy": {
+    "target": "Binary classification or regression on composite_score",
+    "baseline_model": "Logistic Regression",
+    "advanced_model": "XGBoost / LightGBM with SHAP explainability",
+    "optional": "Late-fusion ensemble of numeric and text models; survival analysis"
+  },
+  "data_sources": {
+    "financials": ["yfinance", "pandas_datareader", "Alpha Vantage free tier"],
+    "SEC_filings": ["SEC EDGAR scraper with BeautifulSoup"],
+    "market_share": ["Kaggle industry reports", "Statista samples"],
+    "ESG": ["Kaggle ESG Ratings"],
+    "patents": ["USPTO bulk CSV"],
+    "HR": ["Kaggle HR Analytics", "Glassdoor API free tier"],
+    "sentiment": ["GDELT tone dumps", "Twitter API via Tweepy", "VADER / FinBERT"],
+    "macro": ["FRED API", "BIS / St. Louis Fed CSV", "ECB/BOJ CSV downloads"]
+  },
+  "pipeline_structure": [
+    "data_ingestion.py: pull raw data (financial, macro, ESG, text, patents)",
+    "feature_engineering.py: compute rev_growth, de_ratio, sentiment scores, embeddings, lagged macro",
+    "modeling.py: fit baseline and advanced models, compute SHAP values",
+    "analysis.ipynb: EDA, visualizations, backtests",
+    "main_pipeline.py: orchestrate end-to-end workflow"
+  ],
+  "timeline": {
+    "days_1": "Finalize artifact choice, setup repo & environment",
+    "days_2_3": "Literature matrix (50 sources)",
+    "days_4_5": "Data acquisition scripts",
+    "days_6_7": "Panel construction and merging macro",
+    "day_8": "Feature engineering",
+    "day_9": "Compute success labels & composite",
+    "days_10_11": "Baseline & advanced modeling with SHAP",
+    "day_12": "Build artifact skeleton",
+    "days_13": "Methodology & results write-up",
+    "day_14": "Discussion & conclusion",
+    "day_15": "Finalize thesis and demo artifact"
+  },
+  "current_state": {
+    "date_time": "2025-05-13T18:59:00",
+    "companies": 260,
+    "tickers_file": "master_tickers.csv",
+    "price_data": "sp500_stocks.csv (daily prices)",
+    "EDGAR_parsed": "Separate CSVs & Parquets per ticker from 2009 onward",
+    "artifacts_per_company": "12–20+ rows depending on quarterly vs annual metrics",
+    "missing_metrics": "Some CSVs lack total_revenue but may have net_income"
+  },
+  "immediate_next_steps": [
+    "Validate all parsed CSVs for required columns (total_revenue, net_income, date)",
+    "Consolidate per-ticker CSVs into a single firm–quarter panel",
+    "Filter panel rows by listing and delisting dates",
+    "Merge macro FRED series on quarter_end_date",
+    "Impute or drop missing values according to data quality",
+    "Compute S, R, M and composite_score for each firm",
+    "Run quick baseline logistic regression to verify panel integrity"
+  ]
+}

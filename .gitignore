@@ -1,0 +1,58 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+tmp/**
+.mplconfig/
+.vscode/
+~$*
+
+# Local data: keep manifests/samples in Git, not full datasets.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/fred/
+data/raw/fred/*
+!data/raw/fred/.gitkeep
+!data/raw/sec_fsd_zips/
+data/raw/sec_fsd_zips/*
+!data/raw/sec_fsd_zips/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/panel_v2/
+data/processed/panel_v2/*
+!data/processed/panel_v2/.gitkeep
+data/github/*
+!data/raw/.gitkeep
+!data/github/README.md
+!data/github/firm_panel_v2.csv.gz
+!data/github/firm_panel_v2.parquet
+!data/github/firm_panel_v2_schema.csv
+
+# Local model artifacts can be large and environment-specific.
+models/**
+!models/.gitkeep
+
+# Generated reports can be recreated unless explicitly selected for thesis.
+reports/data_quality/*.csv
+reports/data_quality/*.parquet
+reports/data_quality/*.json
+
+# Full-text literature PDFs and extracted text are local verification material,
+# not redistributable GitHub artifacts.
+reports/literature/legal_full_text_pdfs/**
+reports/literature/legal_full_text_extracts/**
+docs/_redundant/00_system_junk/**
+
+# Local archive material is kept on disk but excluded from the clean package.
+_archive/**
+
+# AutoML artifacts
+AutogluonModels/
+autogluon_logs/
+*.pkl
+*.ubj

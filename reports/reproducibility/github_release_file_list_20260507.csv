@@ -1,0 +1,59 @@
+path,include_in_github_release,destination,reason
+README.md,True,README.md,Required to run dashboard/reproduce artifact.
+requirements.txt,True,requirements.txt,Required to run dashboard/reproduce artifact.
+app/dashboard.py,True,app/dashboard.py,Required to run dashboard/reproduce artifact.
+data/github/README.md,True,data/github/README.md,GitHub-ready panel/schema package.
+data/github/firm_panel_v2.parquet,True,data/github/firm_panel_v2.parquet,GitHub-ready panel/schema package.
+data/github/firm_panel_v2.csv.gz,True,data/github/firm_panel_v2.csv.gz,GitHub-ready panel/schema package.
+data/github/firm_panel_v2_schema.csv,True,data/github/firm_panel_v2_schema.csv,GitHub-ready panel/schema package.
+config/sec_fsd_concept_map.csv,True,config/sec_fsd_concept_map.csv,Rebuild configuration and source-of-truth input definitions.
+config/fred_series_catalog.csv,True,config/fred_series_catalog.csv,Rebuild configuration and source-of-truth input definitions.
+config/global_event_calendar_seed.csv,True,config/global_event_calendar_seed.csv,Rebuild configuration and source-of-truth input definitions.
+config/distress_event_dates.csv,True,config/distress_event_dates.csv,Rebuild configuration and source-of-truth input definitions.
+config/model_feature_blacklist.csv,True,config/model_feature_blacklist.csv,Rebuild configuration and source-of-truth input definitions.
+config/universe_v2_draft.csv,True,config/universe_v2_draft.csv,Rebuild configuration and source-of-truth input definitions.
+docs/CURRENT_STATUS.md,True,docs/CURRENT_STATUS.md,Thesis evidence/documentation artifact.
+docs/PROJECT_CHRONICLE.md,True,docs/PROJECT_CHRONICLE.md,Thesis evidence/documentation artifact.
+docs/FINAL_SOURCE_OF_TRUTH_INDEX.md,True,docs/FINAL_SOURCE_OF_TRUTH_INDEX.md,Thesis evidence/documentation artifact.
+docs/MASTER_DATA_MODEL_TARGET_EXPLAINER.md,True,docs/MASTER_DATA_MODEL_TARGET_EXPLAINER.md,Thesis evidence/documentation artifact.
+docs/THESIS_CLAIMS_SAFE_UNSAFE_FINAL.md,True,docs/THESIS_CLAIMS_SAFE_UNSAFE_FINAL.md,Thesis evidence/documentation artifact.
+docs/SCIENTIFIC_VALIDITY_AND_LIMITATIONS_NOTE.md,True,docs/SCIENTIFIC_VALIDITY_AND_LIMITATIONS_NOTE.md,Thesis evidence/documentation artifact.
+docs/SEC_CONCEPT_MAPPING_AUDIT.md,True,docs/SEC_CONCEPT_MAPPING_AUDIT.md,Thesis evidence/documentation artifact.
+docs/SEC_MAPPING_POLISH_20260509.md,True,docs/SEC_MAPPING_POLISH_20260509.md,Thesis evidence/documentation artifact.
+docs/AMENDMENT_DUPLICATE_HANDLING_NOTE.md,True,docs/AMENDMENT_DUPLICATE_HANDLING_NOTE.md,Thesis evidence/documentation artifact.
+docs/MODEL_TUNING_AND_AUTOGLUON_NOTE.md,True,docs/MODEL_TUNING_AND_AUTOGLUON_NOTE.md,Thesis evidence/documentation artifact.
+docs/FINAL_CAVEAT_RESOLUTION_REGISTER.md,True,docs/FINAL_CAVEAT_RESOLUTION_REGISTER.md,Thesis evidence/documentation artifact.
+docs/REPRODUCIBILITY_FREEZE_20260507.md,True,docs/REPRODUCIBILITY_FREEZE_20260507.md,Thesis evidence/documentation artifact.
+docs/DASHBOARD_THESIS_STORYBOARD.md,True,docs/DASHBOARD_THESIS_STORYBOARD.md,Thesis evidence/documentation artifact.
+docs/MODEL_INTERPRETATION_STABILITY_NOTE.md,True,docs/MODEL_INTERPRETATION_STABILITY_NOTE.md,Thesis evidence/documentation artifact.
+reports/modeling/panel_v2_distress_next_4q_model_metrics.csv,True,reports/modeling/panel_v2_distress_next_4q_model_metrics.csv,Thesis evidence/documentation artifact.
+reports/modeling/panel_v2_failure_pressure_conservative_v2_next_4obs_model_metrics.csv,True,reports/modeling/panel_v2_failure_pressure_conservative_v2_next_4obs_model_metrics.csv,Thesis evidence/documentation artifact.
+reports/modeling/panel_v2_success_resilience_next_4q_model_metrics.csv,True,reports/modeling/panel_v2_success_resilience_next_4q_model_metrics.csv,Thesis evidence/documentation artifact.
+reports/modeling/final_feature_group_contribution_table.csv,True,reports/modeling/final_feature_group_contribution_table.csv,Thesis evidence/documentation artifact.
+reports/modeling/final_model_feature_interpretation_table.csv,True,reports/modeling/final_model_feature_interpretation_table.csv,Thesis evidence/documentation artifact.
+reports/modeling/model_interpretation_stability_summary.csv,True,reports/modeling/model_interpretation_stability_summary.csv,Thesis evidence/documentation artifact.
+reports/RUN_STATUS_FINAL.md,True,reports/RUN_STATUS_FINAL.md,Thesis evidence/documentation artifact.
+reports/model_tuning/baseline_vs_tuned_comparison.csv,True,reports/model_tuning/baseline_vs_tuned_comparison.csv,Thesis evidence/documentation artifact.
+reports/model_tuning_advanced/advanced_vs_existing_comparison.csv,True,reports/model_tuning_advanced/advanced_vs_existing_comparison.csv,Thesis evidence/documentation artifact.
+reports/data_quality/p0_audit_status.csv,True,reports/data_quality/p0_audit_status.csv,Thesis evidence/documentation artifact.
+reports/data_quality/sec_concept_mapping_summary.csv,True,reports/data_quality/sec_concept_mapping_summary.csv,Thesis evidence/documentation artifact.
+reports/data_quality/sec_selected_fact_provenance.parquet,True,reports/data_quality/sec_selected_fact_provenance.parquet,Thesis evidence/documentation artifact.
+reports/data_quality/sec_selected_fact_provenance_summary.csv,True,reports/data_quality/sec_selected_fact_provenance_summary.csv,Thesis evidence/documentation artifact.
+reports/data_quality/sec_selected_fact_panel_validation.csv,True,reports/data_quality/sec_selected_fact_panel_validation.csv,Thesis evidence/documentation artifact.
+reports/data_quality/final_distress_event_date_audit.csv,True,reports/data_quality/final_distress_event_date_audit.csv,Thesis evidence/documentation artifact.
+reports/data_quality/distress_event_final_policy.csv,True,reports/data_quality/distress_event_final_policy.csv,Thesis evidence/documentation artifact.
+reports/data_quality/amendment_duplicate_summary.csv,True,reports/data_quality/amendment_duplicate_summary.csv,Thesis evidence/documentation artifact.
+reports/data_quality/duplicate_amendment_deterministic_policy.csv,True,reports/data_quality/duplicate_amendment_deterministic_policy.csv,Thesis evidence/documentation artifact.
+reports/dashboard/dashboard_polish_checklist.csv,True,reports/dashboard/dashboard_polish_checklist.csv,Thesis evidence/documentation artifact.
+reports/project_audit/dashboard_screenshot_capture.csv,True,reports/project_audit/dashboard_screenshot_capture.csv,Thesis evidence/documentation artifact.
+reports/figures/dashboard/overview.png,True,reports/figures/dashboard/overview.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/data_coverage.png,True,reports/figures/dashboard/data_coverage.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/models_distress.png,True,reports/figures/dashboard/models_distress.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/models_failure_pressure.png,True,reports/figures/dashboard/models_failure_pressure.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/models_success_resilience.png,True,reports/figures/dashboard/models_success_resilience.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/target_lab_factor_groups.png,True,reports/figures/dashboard/target_lab_factor_groups.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/firm_explorer.png,True,reports/figures/dashboard/firm_explorer.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/macro_compare_training_baseline.png,True,reports/figures/dashboard/macro_compare_training_baseline.png,Thesis evidence/documentation artifact.
+reports/figures/dashboard/artifact_notes.png,True,reports/figures/dashboard/artifact_notes.png,Thesis evidence/documentation artifact.
+reports/documentation/master_column_dictionary.csv,True,reports/documentation/master_column_dictionary.csv,Thesis evidence/documentation artifact.
+data/raw/sec_fsd_zips/,False,external SEC download; not committed,Large raw SEC archives; keep out of GitHub and document download/rebuild instructions.

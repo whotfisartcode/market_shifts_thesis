@@ -1,0 +1,7 @@
+check,value,integrity_action
+rows_with_less_than_3_future_observations,1615,future-financial target rows set to unknown unless strict formal distress is known
+post_event_rows_in_experiment_frame,0,post-event rows excluded before target construction
+failure_success_overlap_rows,0,success target is explicitly blocked by same-experiment failure target
+strict_distress_not_captured_by_failure_rows,0,formal distress is forced into every experimental failure target
+rows_with_unknown_failure_target,1489,unknown kept as null and removed from model fitting for that target
+rows_with_unknown_success_target,1615,unknown kept as null and removed from model fitting for that target

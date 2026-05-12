@@ -1,0 +1,74 @@
+[
+  {
+    "target": "distress_next_4q",
+    "target_family": "production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.1336837507798862,
+    "validation_brier": 0.007920045574440543
+  },
+  {
+    "target": "failure_pressure_conservative_v2_next_4obs",
+    "target_family": "production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.7083729497769865,
+    "validation_brier": 0.06413469396394876
+  },
+  {
+    "target": "success_resilience_next_4q",
+    "target_family": "production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.9521808978294828,
+    "validation_brier": 0.07987691023784724
+  },
+  {
+    "target": "industry_relative_resilience_next_4obs",
+    "target_family": "validated_secondary_production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.8724107943688318,
+    "validation_brier": 0.11558265126157174
+  },
+  {
+    "target": "stress_resilience_next_4obs",
+    "target_family": "validated_secondary_production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.944684297410355,
+    "validation_brier": 0.0862907461971701
+  },
+  {
+    "target": "recovery_next_4obs",
+    "target_family": "validated_secondary_production",
+    "selected_model": "gradient_boosting",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.9423726515698293,
+    "validation_brier": 0.08667995422303305
+  },
+  {
+    "target": "quality_success_cashflow_next_4obs",
+    "target_family": "validated_secondary_production",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.9288613935807248,
+    "validation_brier": 0.0939401948616037
+  },
+  {
+    "target": "sector_relative_improvement_next_4obs",
+    "target_family": "robustness_extension",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.6594440261834273,
+    "validation_brier": 0.17218838239137016
+  },
+  {
+    "target": "persistent_resilience_next_6obs",
+    "target_family": "robustness_extension",
+    "selected_model": "random_forest",
+    "selected_calibrator": "isotonic_validation",
+    "validation_pr_auc": 0.932961972489781,
+    "validation_brier": 0.09186702476596126
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "folder": "test_broader_targets4",
+  "title": "Conservative quality gate",
+  "failure_target": "failure_pressure_conservative_next_4obs",
+  "success_target": "success_composite_strict_next_4obs",
+  "failure_definition": "formal distress OR repeated losses plus either balance stress, deterioration, or unhealthy future state",
+  "success_definition": "all three success components: profitability, resilience, and quality; blocked by failure pressure"
+}

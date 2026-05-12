@@ -1,0 +1,9 @@
+{
+  "folder": "test_target_tweaks3",
+  "title": "Balance and liquidity stress pressure",
+  "failure_target": "failure_pressure_balance_liquidity_next_4obs",
+  "success_target": "success_stable_balance_next_4obs",
+  "tweak_summary": "Tests whether balance-sheet/liquidity stress is learnable separately from profitability failure.",
+  "failure_definition": "formal distress OR repeated future loss/unhealthy observations with repeated leverage, current-ratio, or cash stress",
+  "success_definition": "repeated leverage/liquidity health plus positive profitability and non-negative future ROA"
+}

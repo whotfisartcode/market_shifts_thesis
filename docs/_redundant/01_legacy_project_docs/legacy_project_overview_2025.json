@@ -1,0 +1,169 @@
+{
+  "project_title": "Navigating Market Shifts: Predictive Insights into Success and Failure Factors Across Industries",
+  "objective": "Identify key early signals and drivers of company success or failure, especially during global market disruptions, by integrating SEC financials, stock prices, macro (FRED) data, and company metadata into a unified predictive panel. Deliver actionable insights and benchmarks for strategic and risk decisions. (old version changed to: Determine why companies succeed or fail using predictive analytics on a cross-industry dataset, identify early warning signals, and deliver actionable strategic insights.)",
+  "data_types": {
+    "company": {
+      "structured_financial__EDGAR10K_10Q_filings, 30 points": [
+        "rticker,shortname,Sector,Industry,Fulltimeemployees,Weight,date,accounts_receivable,capex,cash_equivalents,cash_flow_financing,cash_flow_investing,cash_flow_operating,current_assets,current_liabilities,depreciation_amortization,eps_basic,eps_diluted,inventory,liabilities_plus_equity,net_income,operating_income,ppe_net,r_and_d_expense,retained_earnings,shares_outstanding,total_assets,total_equity,total_liabilities,total_revenue,wavg_shares_basic,cost_of_revenue,gross_margin,operating_margin,net_margin,debt_to_assets,equity_multiplier,asset_turnover,inventory_turnover,r_and_d_intensity,cash_per_share,price"
+      ],
+      "operational_EDGAR10K_10Q_filings": [
+        "inventory_turnover", "supply_chain_efficiency", "production_outputs"
+      ],
+      "qualitative_text(could_not_get_for_free": [
+        "case_studies", "WEF_reports", "academic_papers", "leadership_interviews"
+      ],
+      "HR": [
+        "workforce_demographics", "employee_turnover", "engagement_scores"
+      ],
+      "innovation_tech(could not get for free": [
+        "patent_counts", "digital_transformation_investment", "tech_adoption_speed"
+      ],
+      "ESG(could not get for free": [
+        "governance_ratings", "CSR_scores"
+      ],
+      "external_factors,could not get": [
+        ""
+      ],
+      
+      
+      "edgar_panel": "Now includes parsed 10-K/10-Q, ratios, macro, price, and company metadata from 2009–2025 (260 tickers)."
+    },
+    "world": {
+      "global_fiscal_FRED_DATA": [
+        "GDPC1,GS10,NFCI,INDPRO,BAMLH0A0HYM2,UNRATE,FEDFUNDS,VIXCLS,USEPUINDXD,M2SL"
+      ],
+      "macro_event": [
+        "political_events", "policy_changes", "global_trends"
+      ],
+      "time_series": [
+        "chronological_alignment_with_company_data"
+      ],
+      "FRED": "Added: Macro data merged to panel by quarter end, includes FEDFUNDS, GS10, INDPRO, M2SL, UNRATE, VIXCLS, NFCI."
+    }
+  },
+  "data_sources": {
+    "financials": [
+      "sp500_cleaned.csv, daily prices",
+      "SEC EDGAR filings, 10-K/10-Q, parsed to CSVs and merged"
+    ],
+    "company_metadata": [
+      "master_tickers.csv: sector, industry, employees, weight"
+    ],
+    "macro": [
+      "FRED API series: FEDFUNDS, GS10, INDPRO, M2SL, UNRATE, VIXCLS, NFCI"
+    ],
+    "others": [
+      "old version changed to: Alpha Vantage, Statista, Kaggle ESG"
+    ]
+  },
+  "compartmentalization": {
+    "company_data": "Analyzed at both individual and aggregated levels. Now in a firm–quarter panel.",
+    "world_data": "Contextual layer aligned in time series, FRED macro series merged quarterly.",
+    "time_dimension": "All datasets synchronized quarterly. (old version changed to: quarterly and/or by SEC filing date.)"
+  },
+  "analysis_strategy": {
+    "individual_vs_aggregated": "Models both individual firm outcomes (case studies, binary streaks) and aggregates (top/bottom quartile, rolling means).",
+    "hierarchical_modeling": "AutoGluon and ensemble models for robust predictive signals. (old version: hierarchical multilevel models; now more practical predictive ML focus.)"
+  },
+  "artifact_options": [
+    {
+      "type": "Citable Dataset",
+      "description": "Publish cleaned, time-aligned multi-modal panel."
+    },
+    {
+      "type": "ML Notebook",
+      "description": "gluon.ipynb, with full pipeline, models, feature importances, and thesis-ready figures. (old version changed to: Early-warning dashboard, package.)"
+    }
+  ],
+  "success_metrics": {
+    "success_net4": "1 if net_income > 0 for 4 consecutive quarters (rolling window), else 0.",
+    "success_margin4": "1 if net_margin > 0 for 4 consecutive quarters.",
+    "distress_net4": "1 if net_income < 0 for 4 consecutive quarters.",
+    "top_quartile_success": "1 if net_margin >= 75th percentile.",
+    "bottom_quartile_distress": "1 if net_margin <= 25th percentile.",
+    "net_income_ma4_success": "1 if 4-quarter rolling mean of net_income > 0.",
+    "zscore_composite": "Sum of standardized ratios: debt_to_assets, equity_multiplier, asset_turnover, inventory_turnover, r_and_d_intensity, cash_per_share. Used for regression or classification.",
+    "old_version": {
+      "survival_flag": "1 if listed ≥ 5 years, else 0",
+      "ROA_KPI": "1 if average ROA > industry median over window, else 0",
+      "market_share_KPI": "1 if market share increases then holds ±1ppt for 2 years, else 0",
+      "composite_score": "C = (S + R + M) / 3 (equal weights) or PCA-derived weights"
+    }
+  },
+  "modeling_strategy": {
+    "platform": "AutoGluon Tabular (v1.0), LightGBM baseline; ensemble models for tabular data with feature importances and SHAP.",
+    "target": "Multiple targets: binary success, distress, quartile and rolling-average health metrics.",
+    "train_test_split": "Random 80/20 split; train on train_df, evaluate on test_df.",
+    "artifact": "Saved model logs, feature importances, SHAP plots, and all code in gluon.ipynb.",
+    "old_version": {
+      "baseline_model": "Logistic Regression",
+      "advanced_model": "XGBoost / LightGBM with SHAP",
+      "optional": "Late-fusion ensemble of numeric and text models; survival analysis"
+    }
+  },
+  "pipeline_structure": [
+    "data_ingestion.py, feature_engineering.py, modeling.py, analysis.ipynb",
+    "Current: End-to-end in gluon.ipynb (data prep, target engineering, modeling, output export)"
+  ],
+  "timeline": {
+    "summary": "Project completed through all key steps, from raw SEC parsing to model outputs, in less than 15 days."
+  },
+  "current_state": {
+    "date_time": "2025-05-15T17:00:00",
+    "companies": 260,
+    "period": "2009–2025",
+    "panel_rows": "One row per firm–quarter.",
+    "features": "All core ratios, raw values, macro indicators, composite z-score.",
+    "success_targets": "success_net4, distress_net4, quartile and rolling metrics.",
+    "model_outputs": "ROC-AUC 0.93–0.97 on all targets, strong interpretability.",
+    "artifact": "gluon.ipynb notebook, final data in .parquet, all code reproducible.",
+    "old_version_changed_to": "Separate CSVs per ticker, partial panel."
+  },
+  "model_results": {
+    "success_net4": {
+      "roc_auc": 0.9387,
+      "accuracy": 0.8671,
+      "balanced_accuracy": 0.8484,
+      "mcc": 0.7035,
+      "f1": 0.8036,
+      "precision": 0.8194,
+      "recall": 0.7883
+    },
+    "top_quartile_success": {
+      "roc_auc": 0.9642,
+      "accuracy": 0.9351,
+      "balanced_accuracy": 0.7918,
+      "mcc": 0.6745,
+      "f1": 0.6985,
+      "precision": 0.8346,
+      "recall": 0.6006
+    },
+    "distress_net4": {
+      "roc_auc": 0.9695,
+      "accuracy": 0.9897,
+      "balanced_accuracy": 0.6184,
+      "mcc": 0.4841,
+      "f1": 0.3830,
+      "precision": 1.0,
+      "recall": 0.2368
+    },
+    "net_income_ma4_success": {
+      "roc_auc": 0.9383,
+      "accuracy": 0.8859,
+      "balanced_accuracy": 0.8385,
+      "mcc": 0.7110,
+      "f1": 0.9224,
+      "precision": 0.8977,
+      "recall": 0.9485
+    }
+  },
+  "outcomes_summary": {
+    "model_performance": "All key success/distress targets achieved ROC-AUCs between 0.93 and 0.97. Balanced accuracy and MCC higher for 'success' than 'distress' due to class imbalance. Feature importance and SHAP highlight top ratios and macro indicators. Macro context improved robustness.",
+    "main_drivers": "Firm-level ratios (debt_to_assets, cash_per_share, asset_turnover) and macro factors (NFCI, GS10, etc.) most influential.",
+    "limitations": "Sample of leading firms (S&P/NASDAQ 100/160), true bankruptcy rare; results robust but limited in capturing full failure spectrum."
+  },
+  "writeup_tips": {
+    "results_section": "Report ROC-AUC, balanced accuracy, and F1. Include feature importance, SHAP plots, and explain macro context.",
+    "discussion_section": "Emphasize how world events and firm fundamentals jointly drive resilience. Note class imbalance and scope limits."
+  }
+}
