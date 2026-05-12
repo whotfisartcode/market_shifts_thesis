@@ -9,8 +9,8 @@ This repository is meant to be cloned, installed, and used directly. The Streaml
 ## Start Here
 
 ```bash
-git clone https://github.com/whotfisartcode/market_shifts.git
-cd market_shifts
+git clone https://github.com/whotfisartcode/market_shifts_thesis.git
+cd market_shifts_thesis
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
