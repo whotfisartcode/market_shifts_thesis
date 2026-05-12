@@ -90,6 +90,7 @@ scripts/                     build, modeling, audit, and utility scripts
 
 ## Useful Entry Points
 
+- [TUTORIAL.md](TUTORIAL.md) - step-by-step guide to the GitHub repository, folders, setup, dashboard launch, and troubleshooting.
 - [QUICKSTART.md](QUICKSTART.md) - shortest run instructions.
 - [DASHBOARD_INPUTS.md](DASHBOARD_INPUTS.md) - exact files the dashboard reads.
 - [REPRODUCIBILITY.md](REPRODUCIBILITY.md) - clone-level setup plus full raw rebuild notes.
