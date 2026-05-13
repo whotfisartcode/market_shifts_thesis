@@ -7,6 +7,7 @@ For the shortest instructions, see `QUICKSTART.md`.
 ## Included
 
 - Streamlit dashboard: `app/dashboard.py`
+- Dashboard cloud dependencies: `app/requirements.txt`
 - Dashboard data package: `data/github/firm_panel_v2.csv.gz`, `data/github/firm_panel_v2.parquet`, and `data/github/firm_panel_v2_schema.csv`
 - Panel-construction, data-quality, modeling, and documentation scripts under `scripts/`
 - Model metrics, feature-importance summaries, target-lab outputs, tuning summaries, and dashboard screenshots under `reports/`
@@ -74,14 +75,62 @@ This checks imports, dashboard input files, the packaged panel/schema, selected 
 
 ## Full Raw Rebuild
 
-A full raw-data rebuild is heavier than the GitHub package because it requires official SEC quarterly ZIP files. Place those ZIPs in `data/raw/sec_fsd_zips/`, download FRED inputs, then run:
+A full raw-data rebuild is heavier than the GitHub package because it downloads official SEC quarterly ZIP files. The full SEC ZIP collection is several GB and can take a while.
+
+For repeated SEC downloads, set a contact user agent first:
 
 ```bash
+export SEC_USER_AGENT="your-name your-email@example.com"
+```
+
+Download fresh company and macro inputs:
+
+```bash
+make download-sec
+make download-fred
+```
+
+Equivalent direct commands:
+
+```bash
+python3 scripts/data/download_sec_fsd_zips.py --from 2009q1 --to latest
 python3 scripts/data/download_fred_series.py
+```
+
+Then rebuild the firm panel:
+
+```bash
 python3 scripts/sec_fsd/index_submissions.py
 python3 scripts/sec_fsd/match_distress_candidates.py
 python3 scripts/sec_fsd/build_universe_v2.py
 python3 scripts/sec_fsd/build_panel_v2.py
+```
+
+Equivalent `make` command:
+
+```bash
+make build-panel
+```
+
+`build_panel_v2.py` rewrites:
+
+```text
+data/processed/panel_v2/firm_panel_v2.csv.gz
+data/processed/panel_v2/firm_panel_v2.parquet
+data/github/firm_panel_v2.csv.gz
+data/github/firm_panel_v2.parquet
+data/github/firm_panel_v2_schema.csv
+```
+
+To run the whole fresh-data panel workflow in one command:
+
+```bash
+make refresh-panel
+```
+
+After the panel is rebuilt, rerun the production model/report outputs:
+
+```bash
 python3 scripts/modeling/train_panel_v2_models.py --target distress_next_4q
 python3 scripts/modeling/train_panel_v2_models.py --target failure_pressure_conservative_v2_next_4obs
 python3 scripts/modeling/train_panel_v2_models.py --target success_resilience_next_4q
@@ -89,6 +138,12 @@ python3 scripts/modeling/promote_validated_secondary_targets.py
 python3 scripts/modeling/run_panel_v2_ablation.py
 python3 scripts/modeling/make_panel_v2_analysis_outputs.py
 python3 scripts/modeling/feature_contribution_summary.py
+```
+
+Equivalent `make` command:
+
+```bash
+make rebuild-models
 ```
 
 See `README.md`, `docs/DATA_MANIFEST.md`, and `docs/PANEL_DATA_ARCHITECTURE_AND_EXPANSION.md` for the detailed project map.

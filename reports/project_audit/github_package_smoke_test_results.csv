@@ -1,5 +1,5 @@
 check,status,detail
-python_executable,INFO,/Library/Frameworks/Python.framework/Versions/3.12/bin/python3
+python_version,INFO,"3.12.0 (v3.12.0:0fb18b02c8, Oct  2 2023, 09:45:56) [Clang 13.0.0 (clang-1300.0.29.30)]"
 import_pandas,PASS,
 import_numpy,PASS,
 import_pyarrow,PASS,
@@ -9,31 +9,34 @@ import_streamlit,PASS,
 import_joblib,PASS,
 import_xgboost,PASS,
 import_lightgbm,PASS,
-exists_README.md,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/README.md
-exists_REPRODUCIBILITY.md,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/REPRODUCIBILITY.md
-exists_requirements.txt,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/requirements.txt
-exists_app/dashboard.py,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/app/dashboard.py
-exists_data/github/README.md,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/data/github/README.md
-exists_data/github/firm_panel_v2.csv.gz,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/data/github/firm_panel_v2.csv.gz
-exists_data/github/firm_panel_v2.parquet,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/data/github/firm_panel_v2.parquet
-exists_data/github/firm_panel_v2_schema.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/data/github/firm_panel_v2_schema.csv
-exists_reports/modeling/panel_v2_model_metrics.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/modeling/panel_v2_model_metrics.csv
-exists_reports/modeling/panel_v2_feature_importance.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/modeling/panel_v2_feature_importance.csv
-exists_reports/modeling/panel_v2_temporal_split_summary.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/modeling/panel_v2_temporal_split_summary.csv
-exists_reports/modeling/calibration_metrics.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/modeling/calibration_metrics.csv
-exists_reports/modeling/threshold_ranking_metrics.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/modeling/threshold_ranking_metrics.csv
-exists_reports/target_lab/validated_secondary_target_profiles.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_lab/validated_secondary_target_profiles.csv
-exists_reports/target_lab/exploratory_reason_code_summary.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_lab/exploratory_reason_code_summary.csv
-exists_reports/target_lab/exploratory_feature_level_importance.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_lab/exploratory_feature_level_importance.csv
-exists_reports/target_lab/exploratory_feature_direction_effects.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_lab/exploratory_feature_direction_effects.csv
-exists_reports/target_lab/exploratory_feature_group_importance.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_lab/exploratory_feature_group_importance.csv
-exists_reports/target_experiments/experiment_comparison.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_experiments/experiment_comparison.csv
-exists_reports/target_tweak_experiments/dashboard_best_target_rows.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_tweak_experiments/dashboard_best_target_rows.csv
-exists_reports/target_tweak_experiments/dashboard_feature_set_performance.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_tweak_experiments/dashboard_feature_set_performance.csv
-exists_reports/target_tweak_experiments/dashboard_factor_group_best_models.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/target_tweak_experiments/dashboard_factor_group_best_models.csv
-exists_reports/model_tuning/model_tuning_summary.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/model_tuning/model_tuning_summary.csv
-exists_reports/model_tuning_advanced/advanced_boosting_summary.csv,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/model_tuning_advanced/advanced_boosting_summary.csv
-exists_reports/figures/dashboard/overview.png,PASS,/Users/whotfisart/codex/Thesis work/market_shifts_clean/reports/figures/dashboard/overview.png
+exists_README.md,PASS,README.md
+exists_DEPLOYMENT.md,PASS,DEPLOYMENT.md
+exists_REPRODUCIBILITY.md,PASS,REPRODUCIBILITY.md
+exists_requirements.txt,PASS,requirements.txt
+exists_app/dashboard.py,PASS,app/dashboard.py
+exists_app/requirements.txt,PASS,app/requirements.txt
+exists_data/github/README.md,PASS,data/github/README.md
+exists_data/github/firm_panel_v2.csv.gz,PASS,data/github/firm_panel_v2.csv.gz
+exists_data/github/firm_panel_v2.parquet,PASS,data/github/firm_panel_v2.parquet
+exists_data/github/firm_panel_v2_schema.csv,PASS,data/github/firm_panel_v2_schema.csv
+exists_reports/modeling/panel_v2_model_metrics.csv,PASS,reports/modeling/panel_v2_model_metrics.csv
+exists_reports/modeling/panel_v2_feature_importance.csv,PASS,reports/modeling/panel_v2_feature_importance.csv
+exists_reports/modeling/panel_v2_temporal_split_summary.csv,PASS,reports/modeling/panel_v2_temporal_split_summary.csv
+exists_reports/modeling/calibration_metrics.csv,PASS,reports/modeling/calibration_metrics.csv
+exists_reports/modeling/threshold_ranking_metrics.csv,PASS,reports/modeling/threshold_ranking_metrics.csv
+exists_reports/target_lab/validated_secondary_target_profiles.csv,PASS,reports/target_lab/validated_secondary_target_profiles.csv
+exists_reports/target_lab/exploratory_reason_code_summary.csv,PASS,reports/target_lab/exploratory_reason_code_summary.csv
+exists_reports/target_lab/exploratory_feature_level_importance.csv,PASS,reports/target_lab/exploratory_feature_level_importance.csv
+exists_reports/target_lab/exploratory_feature_direction_effects.csv,PASS,reports/target_lab/exploratory_feature_direction_effects.csv
+exists_reports/target_lab/exploratory_feature_group_importance.csv,PASS,reports/target_lab/exploratory_feature_group_importance.csv
+exists_reports/target_experiments/experiment_comparison.csv,PASS,reports/target_experiments/experiment_comparison.csv
+exists_reports/target_tweak_experiments/dashboard_best_target_rows.csv,PASS,reports/target_tweak_experiments/dashboard_best_target_rows.csv
+exists_reports/target_tweak_experiments/dashboard_feature_set_performance.csv,PASS,reports/target_tweak_experiments/dashboard_feature_set_performance.csv
+exists_reports/target_tweak_experiments/dashboard_factor_group_best_models.csv,PASS,reports/target_tweak_experiments/dashboard_factor_group_best_models.csv
+exists_reports/model_tuning/model_tuning_summary.csv,PASS,reports/model_tuning/model_tuning_summary.csv
+exists_reports/model_tuning_advanced/advanced_boosting_summary.csv,PASS,reports/model_tuning_advanced/advanced_boosting_summary.csv
+exists_reports/figures/dashboard/overview.png,PASS,reports/figures/dashboard/overview.png
+exists_scripts/data/download_sec_fsd_zips.py,PASS,scripts/data/download_sec_fsd_zips.py
 load_packaged_parquet_panel,PASS,"(31702, 190)"
 load_packaged_csv_panel,PASS,"(31702, 190)"
 load_packaged_schema,PASS,"(190, 4)"

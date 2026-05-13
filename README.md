@@ -24,9 +24,25 @@ make setup
 make dashboard
 ```
 
+## Open The Dashboard Online
+
+The dashboard can be published as a public Streamlit Community Cloud app.
+
+Use these deployment settings:
+
+```text
+Repository: whotfisartcode/market_shifts_thesis
+Branch: reproducible-deliverables-20260513
+Main file path: app/dashboard.py
+Python version: 3.12
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the click-by-click guide.
+
 ## What Is Included
 
 - `app/dashboard.py` - Streamlit dashboard.
+- `app/requirements.txt` - minimal dependency file for Streamlit Cloud deployment.
 - `data/github/firm_panel_v2.csv.gz` - packaged firm panel used by the dashboard.
 - `data/github/firm_panel_v2.parquet` - same panel in Parquet format for analysis.
 - `data/github/firm_panel_v2_schema.csv` - column schema and missingness summary.
@@ -47,6 +63,9 @@ python3 scripts/project_audit/github_package_smoke_check.py
 
 # Run the dashboard
 streamlit run app/dashboard.py
+
+# Download fresh SEC and FRED inputs, then rebuild the packaged panel
+make refresh-panel
 ```
 
 The smoke check should finish with:
@@ -73,6 +92,16 @@ Current packaged panel:
 
 The repository does not need raw SEC ZIPs or local model binaries to run the dashboard.
 
+To recreate the firm panel from fresh official inputs, run:
+
+```bash
+make download-sec
+make download-fred
+make build-panel
+```
+
+This downloads SEC Financial Statement Data Set ZIPs into `data/raw/sec_fsd_zips/`, downloads FRED macro series into `data/raw/fred/`, and rewrites the panel files under `data/github/`.
+
 ## Repository Map
 
 ```text
@@ -92,6 +121,7 @@ scripts/                     build, modeling, audit, and utility scripts
 
 - [TUTORIAL.md](TUTORIAL.md) - step-by-step guide to the GitHub repository, folders, setup, dashboard launch, and troubleshooting.
 - [QUICKSTART.md](QUICKSTART.md) - shortest run instructions.
+- [DEPLOYMENT.md](DEPLOYMENT.md) - how to publish the dashboard online.
 - [DASHBOARD_INPUTS.md](DASHBOARD_INPUTS.md) - exact files the dashboard reads.
 - [REPRODUCIBILITY.md](REPRODUCIBILITY.md) - clone-level setup plus full raw rebuild notes.
 - [data/README.md](data/README.md) - data package explanation.

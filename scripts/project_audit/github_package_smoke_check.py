@@ -16,9 +16,11 @@ OUT = PROJECT_ROOT / "reports/project_audit/github_package_smoke_test_results.cs
 
 REQUIRED_FILES = [
     "README.md",
+    "DEPLOYMENT.md",
     "REPRODUCIBILITY.md",
     "requirements.txt",
     "app/dashboard.py",
+    "app/requirements.txt",
     "data/github/README.md",
     "data/github/firm_panel_v2.csv.gz",
     "data/github/firm_panel_v2.parquet",
@@ -40,6 +42,7 @@ REQUIRED_FILES = [
     "reports/model_tuning/model_tuning_summary.csv",
     "reports/model_tuning_advanced/advanced_boosting_summary.csv",
     "reports/figures/dashboard/overview.png",
+    "scripts/data/download_sec_fsd_zips.py",
 ]
 
 REQUIRED_MODULES = [
@@ -61,7 +64,7 @@ def main() -> None:
     def add(check: str, status: str, detail: str = "") -> None:
         rows.append({"check": check, "status": status, "detail": detail})
 
-    add("python_executable", "INFO", sys.executable)
+    add("python_version", "INFO", sys.version.replace("\n", " "))
 
     for module in REQUIRED_MODULES:
         try:
@@ -72,7 +75,7 @@ def main() -> None:
 
     for rel_path in REQUIRED_FILES:
         path = PROJECT_ROOT / rel_path
-        add(f"exists_{rel_path}", "PASS" if path.exists() else "FAIL", str(path))
+        add(f"exists_{rel_path}", "PASS" if path.exists() else "FAIL", rel_path)
 
     try:
         parquet_panel = pd.read_parquet(PROJECT_ROOT / "data/github/firm_panel_v2.parquet")
@@ -105,7 +108,7 @@ def main() -> None:
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with OUT.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["check", "status", "detail"])
+        writer = csv.DictWriter(handle, fieldnames=["check", "status", "detail"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

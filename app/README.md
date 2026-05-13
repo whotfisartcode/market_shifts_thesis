@@ -2,6 +2,8 @@
 
 The dashboard is ready to run from the GitHub package. It uses the included firm panel and compact report outputs; it does not need raw SEC ZIPs or trained model binaries.
 
+For online deployment, use Streamlit Community Cloud with `app/dashboard.py` as the main file path. The dashboard-specific dependency file is `app/requirements.txt`; the full repository dependency file remains at `requirements.txt`.
+
 Run from the project root:
 
 ```bash

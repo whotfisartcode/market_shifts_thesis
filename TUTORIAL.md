@@ -27,6 +27,7 @@ QUICKSTART.md                     Short command-only setup guide
 DASHBOARD_INPUTS.md               Exact dashboard input files
 REPRODUCIBILITY.md                Reproducibility and rebuild notes
 app/dashboard.py                  The Streamlit dashboard
+app/requirements.txt              Minimal cloud deployment dependencies
 data/github/firm_panel_v2.csv.gz  Main firm panel used by the dashboard
 data/github/firm_panel_v2.parquet Same panel for direct analysis
 data/github/firm_panel_v2_schema.csv Column schema
@@ -339,7 +340,37 @@ Use this only if you want to recreate the panel from raw sources. The instructio
 REPRODUCIBILITY.md
 ```
 
-## 15. Common Problems And Fixes
+The shortest fresh-data rebuild command is:
+
+```bash
+export SEC_USER_AGENT="your-name your-email@example.com"
+make refresh-panel
+make rebuild-models
+make dashboard
+```
+
+`make refresh-panel` downloads official SEC Financial Statement Data Set ZIPs, downloads FRED macro data, indexes SEC submissions, rebuilds the universe, and rewrites the packaged firm panel in `data/github/`.
+
+## 15. Publishing The Dashboard Online
+
+Use Streamlit Community Cloud. GitHub stores the code and data, while Streamlit runs the Python dashboard and gives you a public URL.
+
+Deployment settings:
+
+```text
+Repository: whotfisartcode/market_shifts_thesis
+Branch: reproducible-deliverables-20260513
+Main file path: app/dashboard.py
+Python version: 3.12
+```
+
+Full instructions are in:
+
+```text
+DEPLOYMENT.md
+```
+
+## 16. Common Problems And Fixes
 
 ### Problem: `streamlit: command not found`
 
@@ -396,7 +427,7 @@ Use this reading order:
 
 Do not start by browsing every folder.
 
-## 16. Recommended Workflow For A Reviewer Or Thesis Supervisor
+## 17. Recommended Workflow For A Reviewer Or Thesis Supervisor
 
 1. Read `README.md`.
 2. Run the setup commands from `QUICKSTART.md`.
@@ -407,7 +438,7 @@ Do not start by browsing every folder.
 7. Review model outputs in `reports/modeling/`.
 8. Review limitations in `docs/SCIENTIFIC_VALIDITY_AND_LIMITATIONS_NOTE.md`.
 
-## 17. Short Summary
+## 18. Short Summary
 
 Use the repository like this:
 

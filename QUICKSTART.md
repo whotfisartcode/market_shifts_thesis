@@ -40,7 +40,20 @@ Or:
 make dashboard
 ```
 
-## 4. Open The Data Directly
+## 4. Publish Online
+
+Use Streamlit Community Cloud with:
+
+```text
+Repository: whotfisartcode/market_shifts_thesis
+Branch: reproducible-deliverables-20260513
+Main file path: app/dashboard.py
+Python version: 3.12
+```
+
+See `DEPLOYMENT.md`.
+
+## 5. Open The Data Directly
 
 ```python
 import pandas as pd
@@ -53,4 +66,15 @@ Expected shape:
 
 ```text
 (31702, 190)
+```
+
+## 6. Fresh Data Rebuild
+
+For a full fresh-data rebuild:
+
+```bash
+export SEC_USER_AGENT="your-name your-email@example.com"
+make refresh-panel
+make rebuild-models
+make dashboard
 ```
