@@ -42,7 +42,14 @@ rebuild-models: $(BIN)/python
 	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target distress_next_4q
 	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target failure_pressure_conservative_v2_next_4obs
 	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target success_resilience_next_4q
+	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target industry_relative_resilience_next_4obs
+	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target stress_resilience_next_4obs
+	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target recovery_next_4obs
+	$(BIN)/python scripts/modeling/train_panel_v2_models.py --target quality_success_cashflow_next_4obs
+	$(BIN)/python scripts/modeling/run_exploratory_target_lab.py
 	$(BIN)/python scripts/modeling/promote_validated_secondary_targets.py
+	$(BIN)/python scripts/modeling/run_validation_extension_gate.py
+	$(BIN)/python scripts/modeling/run_target_feature_tweak_experiments.py
 	$(BIN)/python scripts/modeling/run_panel_v2_ablation.py
 	$(BIN)/python scripts/modeling/make_panel_v2_analysis_outputs.py
 	$(BIN)/python scripts/modeling/feature_contribution_summary.py

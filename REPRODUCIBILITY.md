@@ -1,6 +1,6 @@
 # Reproducibility
 
-This repository is a download-and-use package. The dashboard runs from the compact firm panel and report outputs included in GitHub.
+This repository is a committee-facing download-and-use package. The dashboard runs from the compact firm panel and report outputs included in GitHub. The full working archive stays local on the research machine.
 
 For the shortest instructions, see `QUICKSTART.md`.
 
@@ -10,8 +10,8 @@ For the shortest instructions, see `QUICKSTART.md`.
 - Dashboard cloud dependencies: `app/requirements.txt`
 - Dashboard data package: `data/github/firm_panel_v2.csv.gz`, `data/github/firm_panel_v2.parquet`, and `data/github/firm_panel_v2_schema.csv`
 - Panel-construction, data-quality, modeling, and documentation scripts under `scripts/`
-- Model metrics, feature-importance summaries, target-lab outputs, tuning summaries, and dashboard screenshots under `reports/`
-- Current thesis documentation and bibliography under `docs/`
+- Model metrics, feature-importance summaries, target-lab outputs, target/feature-set summaries, and dashboard screenshots under `reports/`
+- Final source-of-truth thesis documentation and bibliography under `docs/`
 - Small samples and schemas under `data/samples/`
 
 The exact dashboard inputs are listed in `DASHBOARD_INPUTS.md`.
@@ -22,7 +22,8 @@ The exact dashboard inputs are listed in `DASHBOARD_INPUTS.md`.
 - Local FRED downloads under `data/raw/fred/`
 - Large processed/interim tables under `data/processed/` and `data/interim/`
 - Local trained `joblib` model binaries under `models/`
-- Full-text literature PDFs and extracted full-text files under `reports/literature/legal_full_text_*`
+- Deep audit logs, legacy plots, model-tuning archives, and full-text literature working files
+- Manuscript `.docx` drafts and local thesis-audit working files
 - Local caches, temporary files, and editor metadata
 
 The dashboard does not require the excluded raw data or model binaries. It reads the compact GitHub panel and exported modeling/report artifacts.
@@ -55,7 +56,7 @@ Equivalent `make` command:
 make dashboard
 ```
 
-The dashboard expects the packaged panel at `data/github/firm_panel_v2.csv.gz` and report files under `reports/modeling/`, `reports/target_lab/`, `reports/target_experiments/`, `reports/target_tweak_experiments/`, `reports/model_tuning/`, and `reports/model_tuning_advanced/`.
+The dashboard expects the packaged panel at `data/github/firm_panel_v2.csv.gz` and compact report files under `reports/modeling/`, `reports/target_lab/`, and `reports/target_tweak_experiments/`.
 
 ## Smoke Check
 

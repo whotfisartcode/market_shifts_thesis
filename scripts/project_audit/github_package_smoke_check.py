@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import py_compile
+import subprocess
 import sys
 from pathlib import Path
 
@@ -16,6 +17,7 @@ OUT = PROJECT_ROOT / "reports/project_audit/github_package_smoke_test_results.cs
 
 REQUIRED_FILES = [
     "README.md",
+    "COMMITTEE_PACKAGE.md",
     "DEPLOYMENT.md",
     "REPRODUCIBILITY.md",
     "requirements.txt",
@@ -35,12 +37,9 @@ REQUIRED_FILES = [
     "reports/target_lab/exploratory_feature_level_importance.csv",
     "reports/target_lab/exploratory_feature_direction_effects.csv",
     "reports/target_lab/exploratory_feature_group_importance.csv",
-    "reports/target_experiments/experiment_comparison.csv",
     "reports/target_tweak_experiments/dashboard_best_target_rows.csv",
     "reports/target_tweak_experiments/dashboard_feature_set_performance.csv",
     "reports/target_tweak_experiments/dashboard_factor_group_best_models.csv",
-    "reports/model_tuning/model_tuning_summary.csv",
-    "reports/model_tuning_advanced/advanced_boosting_summary.csv",
     "reports/figures/dashboard/overview.png",
     "scripts/data/download_sec_fsd_zips.py",
 ]
@@ -98,7 +97,12 @@ def main() -> None:
         add("load_packaged_panel_or_schema", "FAIL", f"{type(exc).__name__}: {exc}")
 
     compile_failures = []
-    python_paths = sorted((PROJECT_ROOT / "scripts").glob("**/*.py")) + sorted((PROJECT_ROOT / "app").glob("**/*.py"))
+    tracked_paths = subprocess.check_output(["git", "ls-files"], cwd=PROJECT_ROOT, text=True).splitlines()
+    python_paths = sorted(
+        PROJECT_ROOT / rel_path
+        for rel_path in tracked_paths
+        if rel_path.endswith(".py") and (rel_path.startswith("scripts/") or rel_path.startswith("app/"))
+    )
     for path in python_paths:
         try:
             py_compile.compile(str(path), doraise=True)

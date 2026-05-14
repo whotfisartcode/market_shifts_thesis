@@ -4,7 +4,7 @@ Reproducible deliverable package for the thesis project:
 
 **Navigating Market Shifts: Predictive Insights into Success and Failure Factors Across Industries**
 
-This repository is meant to be cloned, installed, and used directly. The Streamlit dashboard works from the packaged firm panel and report outputs already included in GitHub.
+This repository is a committee-facing reproducibility package, not the full working archive. It is meant to be cloned, installed, and used directly. The Streamlit dashboard works from the packaged firm panel and compact report outputs already included in GitHub.
 
 ## Start Here
 
@@ -49,9 +49,8 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the click-by-click guide.
 - `reports/modeling/` - model metrics, feature importance, calibration, and target summaries.
 - `reports/target_lab/` - validated secondary target profiles and interpretation tables.
 - `reports/target_tweak_experiments/` - compact target and feature-set experiment summaries.
-- `reports/model_tuning*/` - compact tuning summaries.
 - `reports/figures/dashboard/` - exported dashboard screenshots.
-- `docs/` - thesis-facing methodology, data, target, and limitation notes.
+- `docs/` - final source-of-truth methodology, data, target, and limitation notes.
 - `scripts/` - data build, modeling, audit, and smoke-check scripts.
 - `config/` - source catalogs, SEC concept mapping, universe definitions, and event metadata.
 
@@ -120,6 +119,7 @@ scripts/                     build, modeling, audit, and utility scripts
 ## Useful Entry Points
 
 - [TUTORIAL.md](TUTORIAL.md) - step-by-step guide to the GitHub repository, folders, setup, dashboard launch, and troubleshooting.
+- [COMMITTEE_PACKAGE.md](COMMITTEE_PACKAGE.md) - what is intentionally included and excluded from the public package.
 - [QUICKSTART.md](QUICKSTART.md) - shortest run instructions.
 - [DEPLOYMENT.md](DEPLOYMENT.md) - how to publish the dashboard online.
 - [DASHBOARD_INPUTS.md](DASHBOARD_INPUTS.md) - exact files the dashboard reads.
@@ -138,5 +138,6 @@ These are intentionally not part of the GitHub package:
 - trained `joblib` model binaries under `models/`
 - full-text literature PDFs and extracted full-text files
 - local notebooks, caches, editor files, and temporary files
+- working manuscript drafts and audit archives
 
 For a full raw-data rebuild, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md).

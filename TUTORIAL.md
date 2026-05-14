@@ -4,7 +4,7 @@ This guide explains the repository from zero. Use it when you open GitHub and fe
 
 ## 1. What This GitHub Repository Is
 
-This repository is the public, reproducible package for the thesis dashboard and supporting analysis.
+This repository is the public, reproducible committee package for the thesis dashboard and supporting analysis. It is not the full working archive.
 
 In plain terms, it contains:
 
@@ -86,6 +86,7 @@ When your goal is only to run the dashboard, ignore:
 - legacy parser scripts.
 
 The dashboard already has the packaged panel and report outputs it needs.
+The omitted archive material stays in the local working archive, not in the committee GitHub package.
 
 ## 5. How To Download The Repository From GitHub
 
@@ -190,8 +191,6 @@ data/github/firm_panel_v2.csv.gz
 reports/modeling/
 reports/target_lab/
 reports/target_tweak_experiments/
-reports/model_tuning/
-reports/model_tuning_advanced/
 ```
 
 The exact file list is in:

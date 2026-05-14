@@ -1,8 +1,0 @@
-target,status,best_model_json,best_pr_auc_json,recomputed_best_model,error
-distress_next_4q,PASS,gradient_boosting,0.10431388596964519,gradient_boosting,
-failure_pressure_conservative_v2_next_4obs,PASS,random_forest,0.7578791892959569,random_forest,
-success_resilience_next_4q,PASS,random_forest,0.974648887771459,random_forest,
-industry_relative_resilience_next_4obs,PASS,gradient_boosting,0.8546067364306824,gradient_boosting,
-stress_resilience_next_4obs,PASS,random_forest,0.97362695463893,random_forest,
-recovery_next_4obs,PASS,random_forest,0.9772675870366334,random_forest,
-quality_success_cashflow_next_4obs,PASS,gradient_boosting,0.952856420027953,gradient_boosting,

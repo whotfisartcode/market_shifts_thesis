@@ -1,7 +1,0 @@
-series_id,in_catalog,raw_file_exists,extension_action
-STLFSI4,False,False,candidate_for_optional_download_gate
-ANFCI,False,False,candidate_for_optional_download_gate
-CFNAI,False,False,candidate_for_optional_download_gate
-BAMLC0A4CBBB,False,False,candidate_for_optional_download_gate
-BAMLC0A0CM,False,False,candidate_for_optional_download_gate
-USEPUINDXD,True,True,already_available

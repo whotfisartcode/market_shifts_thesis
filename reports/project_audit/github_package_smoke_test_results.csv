@@ -1,5 +1,5 @@
 check,status,detail
-python_version,INFO,"3.12.0 (v3.12.0:0fb18b02c8, Oct  2 2023, 09:45:56) [Clang 13.0.0 (clang-1300.0.29.30)]"
+python_version,INFO,"3.12.7 | packaged by conda-forge | (main, Oct  4 2024, 15:57:01) [Clang 17.0.6 ]"
 import_pandas,PASS,
 import_numpy,PASS,
 import_pyarrow,PASS,
@@ -10,6 +10,7 @@ import_joblib,PASS,
 import_xgboost,PASS,
 import_lightgbm,PASS,
 exists_README.md,PASS,README.md
+exists_COMMITTEE_PACKAGE.md,PASS,COMMITTEE_PACKAGE.md
 exists_DEPLOYMENT.md,PASS,DEPLOYMENT.md
 exists_REPRODUCIBILITY.md,PASS,REPRODUCIBILITY.md
 exists_requirements.txt,PASS,requirements.txt
@@ -29,12 +30,9 @@ exists_reports/target_lab/exploratory_reason_code_summary.csv,PASS,reports/targe
 exists_reports/target_lab/exploratory_feature_level_importance.csv,PASS,reports/target_lab/exploratory_feature_level_importance.csv
 exists_reports/target_lab/exploratory_feature_direction_effects.csv,PASS,reports/target_lab/exploratory_feature_direction_effects.csv
 exists_reports/target_lab/exploratory_feature_group_importance.csv,PASS,reports/target_lab/exploratory_feature_group_importance.csv
-exists_reports/target_experiments/experiment_comparison.csv,PASS,reports/target_experiments/experiment_comparison.csv
 exists_reports/target_tweak_experiments/dashboard_best_target_rows.csv,PASS,reports/target_tweak_experiments/dashboard_best_target_rows.csv
 exists_reports/target_tweak_experiments/dashboard_feature_set_performance.csv,PASS,reports/target_tweak_experiments/dashboard_feature_set_performance.csv
 exists_reports/target_tweak_experiments/dashboard_factor_group_best_models.csv,PASS,reports/target_tweak_experiments/dashboard_factor_group_best_models.csv
-exists_reports/model_tuning/model_tuning_summary.csv,PASS,reports/model_tuning/model_tuning_summary.csv
-exists_reports/model_tuning_advanced/advanced_boosting_summary.csv,PASS,reports/model_tuning_advanced/advanced_boosting_summary.csv
 exists_reports/figures/dashboard/overview.png,PASS,reports/figures/dashboard/overview.png
 exists_scripts/data/download_sec_fsd_zips.py,PASS,scripts/data/download_sec_fsd_zips.py
 load_packaged_parquet_panel,PASS,"(31702, 190)"

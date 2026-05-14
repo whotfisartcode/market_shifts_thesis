@@ -1,4 +1,0 @@
-target,chosen_by_validation_candidate,model_family,test_rows,test_positives,test_roc_auc,test_pr_auc,test_precision,test_recall,test_f1,threshold_from_validation
-distress_next_4q,extra_trees_cfg3_seed777,extra_trees,5872,96,0.8093448825600185,0.14272962157142668,0.17307692307692307,0.375,0.23684210526315785,0.12773606249702307
-failure_pressure_conservative_v2_next_4obs,hist_gradient_boosting_cfg4,hist_gradient_boosting,5734,575,0.9409150745425892,0.7475900706964291,0.6053333333333333,0.7895652173913044,0.6852830188679244,0.13060003930484151
-success_resilience_next_4q,random_forest_cfg1_seed202,random_forest,4046,2647,0.9660875475574463,0.9740081749427809,0.9343228200371058,0.9512655836796373,0.9427180831149383,0.4619163898310619

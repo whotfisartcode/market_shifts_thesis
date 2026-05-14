@@ -1,7 +1,0 @@
-path,status,size_bytes
-config/sec_fsd_concept_map.csv,PASS,3325
-config/model_feature_blacklist.csv,PASS,2089
-config/distress_event_dates.csv,PASS,9127
-config/fred_series_catalog.csv,PASS,3417
-config/global_event_calendar_seed.csv,PASS,4519
-config/universe_v2_draft_expanded_150.csv,PASS,130518

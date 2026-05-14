@@ -1154,7 +1154,7 @@ with target_lab_tab:
     else:
         st.info("Reason-code and feature-level target-lab outputs are not available yet.")
 
-    with st.expander("Legacy target-tweak experiments"):
+    with st.expander("Target and feature-set experiment summaries"):
         if not target_tweaks.empty:
             display_cols = [
                 "target",
@@ -1486,7 +1486,7 @@ with artifact_tab:
                 },
                 {
                     "caveat": "SEC accounting concepts",
-                    "control": "Concept mapping, qtrs handling, missingness, and selected-fact provenance are audited in reports/data_quality/.",
+                    "control": "Concept mapping, qtrs handling, missingness, and selected-fact provenance are handled by the panel rebuild scripts and generated local audit outputs.",
                 },
                 {
                     "caveat": "Null values",

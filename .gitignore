@@ -11,6 +11,18 @@ tmp/**
 ~$*
 notebooks/**
 docs/_redundant/**
+docs/audits/**
+docs/*.docx
+docs/*.md
+!docs/README.md
+!docs/BIBLIOGRAPHY.md
+!docs/DATA_MANIFEST.md
+!docs/FINAL_CAVEAT_RESOLUTION_REGISTER.md
+!docs/FINAL_SOURCE_OF_TRUTH_INDEX.md
+!docs/FINAL_TARGET_HIERARCHY.md
+!docs/MASTER_DATA_MODEL_TARGET_EXPLAINER.md
+!docs/PANEL_DATA_ARCHITECTURE_AND_EXPANSION.md
+!docs/SCIENTIFIC_VALIDITY_AND_LIMITATIONS_NOTE.md
 
 # Local data: keep manifests/samples in Git, not full datasets.
 data/raw/*
@@ -34,6 +46,7 @@ data/github/*
 !data/github/firm_panel_v2.csv.gz
 !data/github/firm_panel_v2.parquet
 !data/github/firm_panel_v2_schema.csv
+data/samples/legacy_*
 
 # Local model artifacts can be large and environment-specific.
 models/**
@@ -41,8 +54,80 @@ models/**
 
 # Generated reports can be recreated unless explicitly selected for thesis.
 reports/data_quality/*.csv
+reports/data_quality/*.csv.gz
 reports/data_quality/*.parquet
 reports/data_quality/*.json
+reports/data_quality/*.txt
+reports/data_quality/*.md
+reports/data_quality/model_feature_lists/**
+reports/dashboard/**
+reports/documentation/**
+reports/final_thesis_appendix_pack/**
+reports/literature/**
+reports/RUN_STATUS_FINAL.md
+reports/modeling/*
+!reports/modeling/
+!reports/modeling/panel_v2_model_metrics.csv
+!reports/modeling/panel_v2_feature_importance.csv
+!reports/modeling/panel_v2_temporal_split_summary.csv
+!reports/modeling/panel_v2_*_model_metrics.csv
+!reports/modeling/panel_v2_*_feature_importance.csv
+!reports/modeling/panel_v2_*_temporal_split_summary.csv
+!reports/modeling/calibration_metrics.csv
+!reports/modeling/threshold_ranking_metrics.csv
+reports/model_tuning/**
+reports/model_tuning_advanced/**
+reports/pre_expansion_20260505/**
+reports/project_audit/**
+!reports/project_audit/
+!reports/project_audit/github_package_smoke_test_results.csv
+reports/reproducibility/**
+reports/figures/modeling/**
+reports/figures/target_lab/**
+reports/figures/thesis_main_text/**
+reports/target_experiments/**
+reports/target_lab/*
+!reports/target_lab/
+!reports/target_lab/validated_secondary_target_profiles.csv
+!reports/target_lab/exploratory_reason_code_summary.csv
+!reports/target_lab/exploratory_feature_level_importance.csv
+!reports/target_lab/exploratory_feature_direction_effects.csv
+!reports/target_lab/exploratory_feature_group_importance.csv
+reports/target_tweak_experiments/*
+!reports/target_tweak_experiments/
+!reports/target_tweak_experiments/README.md
+!reports/target_tweak_experiments/dashboard_best_target_rows.csv
+!reports/target_tweak_experiments/dashboard_factor_group_best_models.csv
+!reports/target_tweak_experiments/dashboard_feature_set_performance.csv
+reports/target_tweak_experiments/all_*.csv
+reports/target_tweak_experiments/feature_ablation_*.csv
+reports/target_tweak_experiments/feature_set_inventory.csv
+reports/target_tweak_experiments/target_tweak_*.csv
+
+# Local-only archive scripts and source lists.
+scripts/data_quality/**
+scripts/docs/**
+scripts/features/**
+scripts/legacy_parsers/**
+scripts/modeling/*.py
+!scripts/modeling/feature_contribution_summary.py
+!scripts/modeling/make_panel_v2_analysis_outputs.py
+!scripts/modeling/promote_validated_secondary_targets.py
+!scripts/modeling/run_exploratory_target_lab.py
+!scripts/modeling/run_panel_v2_ablation.py
+!scripts/modeling/run_target_feature_tweak_experiments.py
+!scripts/modeling/run_validation_extension_gate.py
+!scripts/modeling/train_panel_v2_models.py
+scripts/project_audit/*
+!scripts/project_audit/
+!scripts/project_audit/github_package_smoke_check.py
+config/distress_event_source_provenance.csv
+config/rebuild_universe_candidates.csv
+config/tag_map.txt
+config/ticker100.txt
+config/universe_expansion_150_candidates.csv
+config/universe_v2_draft_expanded_150.csv
+config/universe_v2_pre_expansion_20260505.csv
 
 # Full-text literature PDFs and extracted text are local verification material,
 # not redistributable GitHub artifacts.
