@@ -733,6 +733,10 @@ filtered = panel[
 ].copy()
 filtered = add_outcome_category(filtered)
 
+if filtered.empty:
+    st.warning("No rows match the current sidebar filters. Adjust sectors, cohorts, or prediction years to restore the dashboard views.")
+    st.stop()
+
 overview, data_tab, models_tab, target_lab_tab, firms_tab, artifact_tab = st.tabs(
     ["Overview", "Data Coverage", "Models", "Target Lab", "Firm Explorer", "Artifact Notes"]
 )
