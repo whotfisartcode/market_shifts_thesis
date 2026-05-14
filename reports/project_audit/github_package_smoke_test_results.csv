@@ -1,5 +1,5 @@
 check,status,detail
-python_version,INFO,"3.12.7 | packaged by conda-forge | (main, Oct  4 2024, 15:57:01) [Clang 17.0.6 ]"
+python_version,INFO,"3.12.0 (v3.12.0:0fb18b02c8, Oct  2 2023, 09:45:56) [Clang 13.0.0 (clang-1300.0.29.30)]"
 import_pandas,PASS,
 import_numpy,PASS,
 import_pyarrow,PASS,

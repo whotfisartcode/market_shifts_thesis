@@ -392,7 +392,7 @@ def display_target_table(frame: pd.DataFrame, height: int = 300) -> None:
     for col in ["coverage", "positive_share_known"]:
         if col in display.columns:
             display[col] = display[col].map(lambda value: "n/a" if pd.isna(value) else f"{value:.1%}")
-    st.dataframe(display, use_container_width=True, height=height, hide_index=True)
+    st.dataframe(display, width="stretch", height=height, hide_index=True)
 
 
 def metric_card(label: str, value: str) -> None:
@@ -534,7 +534,7 @@ def line_chart_safe(data: pd.DataFrame, *, x: str | None = None, y: str | list[s
         )
         .properties(width=900, height=height or 300)
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 def bar_chart_safe(
@@ -575,7 +575,7 @@ def bar_chart_safe(
         encodings["color"] = alt.Color(f"{color_column}:N", title=metric_label(color_column))
         encodings["tooltip"].append(alt.Tooltip(f"{color_column}:N", title=metric_label(color_column)))
     chart = alt.Chart(chart_data).mark_bar().encode(**encodings).properties(width=900, height=height or 300)
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 def context_metric_columns() -> set[str]:
@@ -882,7 +882,7 @@ with overview:
             .reset_index()
         )
         outcome_mix["share"] = outcome_mix["rows"] / outcome_mix["rows"].sum()
-        st.dataframe(outcome_mix, use_container_width=True, height=250)
+        st.dataframe(outcome_mix, width="stretch", height=250)
 
 with data_tab:
     st.subheader("Dataset Snapshot")
@@ -914,7 +914,7 @@ with data_tab:
                 "post_event_flag",
             ]
         ].sort_values(["prediction_date", "ticker"], ascending=[False, True]),
-        use_container_width=True,
+        width="stretch",
         height=420,
     )
 
@@ -928,17 +928,17 @@ with data_tab:
         .sort_values("missing_share", ascending=False)
         .head(25)
     )
-    st.dataframe(missing, use_container_width=True, height=360)
+    st.dataframe(missing, width="stretch", height=360)
 
 with models_tab:
     st.subheader("Production Target Hierarchy")
     hierarchy = pd.DataFrame(TARGET_INFO)
-    st.dataframe(hierarchy[["tier", "label", "column", "role"]], use_container_width=True, hide_index=True, height=285)
+    st.dataframe(hierarchy[["tier", "label", "column", "role"]], width="stretch", hide_index=True, height=285)
 
     st.subheader("Temporal Split")
     if not splits.empty:
         selected_split_target = st.selectbox("Target", ordered_target_labels(splits["target_label"].unique()))
-        st.dataframe(splits[splits["target_label"] == selected_split_target], use_container_width=True)
+        st.dataframe(splits[splits["target_label"] == selected_split_target], width="stretch")
     else:
         st.info("Run scripts/modeling/train_panel_v2_models.py to generate split outputs.")
 
@@ -946,7 +946,7 @@ with models_tab:
     if not metrics.empty:
         metric_target = st.selectbox("Metric target", ordered_target_labels(metrics["target_label"].unique()))
         metric_view = metrics[metrics["target_label"] == metric_target]
-        st.dataframe(metric_view.sort_values(["split", "pr_auc"], ascending=[True, False]), use_container_width=True)
+        st.dataframe(metric_view.sort_values(["split", "pr_auc"], ascending=[True, False]), width="stretch")
         test_metrics = metric_view[metric_view["split"] == "test"].sort_values("pr_auc", ascending=False)
         bar_chart_safe(test_metrics, x="model", y="pr_auc")
     else:
@@ -959,7 +959,7 @@ with models_tab:
         selected_model = st.selectbox("Model", sorted(importance_view["model"].unique()))
         top = importance_view[importance_view["model"] == selected_model].sort_values("importance", ascending=False).head(20)
         bar_chart_safe(top, x="feature", y="importance")
-        st.dataframe(top, use_container_width=True)
+        st.dataframe(top, width="stretch")
     else:
         st.info("Feature importance outputs are not available yet.")
 
@@ -1024,7 +1024,7 @@ with target_lab_tab:
             calibration_view["target"].eq(selected_calibration_target)
             & calibration_view["split"].isin(["validation", "test"])
         ].sort_values(["split", "brier_score"])
-        st.dataframe(calibration_table, use_container_width=True, height=260)
+        st.dataframe(calibration_table, width="stretch", height=260)
 
         ranking_view = threshold_metrics[
             threshold_metrics["target"].eq(selected_calibration_target)
@@ -1051,7 +1051,7 @@ with target_lab_tab:
                         "lift_vs_base_rate",
                     ]
                 ],
-                use_container_width=True,
+                width="stretch",
                 height=180,
                 hide_index=True,
             )
@@ -1086,7 +1086,7 @@ with target_lab_tab:
                     "interpretation_note",
                 ]
             ],
-            use_container_width=True,
+            width="stretch",
             height=280,
             hide_index=True,
         )
@@ -1100,7 +1100,7 @@ with target_lab_tab:
             ].sort_values("importance_share", ascending=False)
         if not group_view.empty:
             st.subheader("Feature Group Shares")
-            st.dataframe(group_view, use_container_width=True, height=220, hide_index=True)
+            st.dataframe(group_view, width="stretch", height=220, hide_index=True)
             bar_chart_safe(group_view, x="feature_group", y="importance_share")
 
         level_view = pd.DataFrame()
@@ -1121,7 +1121,7 @@ with target_lab_tab:
                         "selected_calibrator",
                     ]
                 ].head(25),
-                use_container_width=True,
+                width="stretch",
                 height=340,
                 hide_index=True,
             )
@@ -1147,7 +1147,7 @@ with target_lab_tab:
                         "direction_interpretation",
                     ]
                 ].head(25),
-                use_container_width=True,
+                width="stretch",
                 height=340,
                 hide_index=True,
             )
@@ -1168,7 +1168,7 @@ with target_lab_tab:
                 "f1_mean",
             ]
             available = [col for col in display_cols if col in target_tweaks.columns]
-            st.dataframe(target_tweaks[available].sort_values("pr_auc_mean", ascending=False), use_container_width=True)
+            st.dataframe(target_tweaks[available].sort_values("pr_auc_mean", ascending=False), width="stretch")
         if not feature_ablation.empty:
             targets = sorted(feature_ablation["target"].dropna().unique())
             selected_target = st.selectbox("Ablation target", targets)
@@ -1176,7 +1176,7 @@ with target_lab_tab:
                 "pr_auc_mean",
                 ascending=False,
             )
-            st.dataframe(ablation_view, use_container_width=True, height=280)
+            st.dataframe(ablation_view, width="stretch", height=280)
         if not factor_groups.empty:
             factor_targets = sorted(factor_groups["target"].dropna().unique())
             selected_factor_target = st.selectbox("Legacy factor target", factor_targets)
@@ -1184,7 +1184,7 @@ with target_lab_tab:
                 "importance_share",
                 ascending=False,
             )
-            st.dataframe(factor_view, use_container_width=True, height=260)
+            st.dataframe(factor_view, width="stretch", height=260)
 
 with firms_tab:
     st.subheader("Firm Explorer")
@@ -1383,7 +1383,7 @@ with firms_tab:
             ]
             if not event_context.empty:
                 st.subheader("Readable Global Event Context")
-                st.dataframe(event_context.tail(20), use_container_width=True, height=260)
+                st.dataframe(event_context.tail(20), width="stretch", height=260)
 
     with target_timeline_tab:
         st.subheader("Target Timeline")
@@ -1442,7 +1442,7 @@ with firms_tab:
             "quality_success_cashflow_next_4obs",
         ]
         visible_columns = available_columns(firm, visible_columns)
-        st.dataframe(firm[visible_columns].tail(20), use_container_width=True, height=420)
+        st.dataframe(firm[visible_columns].tail(20), width="stretch", height=420)
 
 with artifact_tab:
     st.subheader("Artifact Description")
@@ -1473,7 +1473,7 @@ with artifact_tab:
                 },
             ]
         ),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     st.subheader("Caveat Controls")
@@ -1502,7 +1502,7 @@ with artifact_tab:
                 },
             ]
         ),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     st.write("Core dataset:", str(PANEL_PATH.relative_to(ROOT)))
