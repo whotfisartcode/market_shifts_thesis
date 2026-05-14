@@ -724,7 +724,7 @@ with st.sidebar:
     selected_cohorts = st.multiselect("Cohort", cohorts, default=cohorts)
     min_year = int(panel["prediction_year"].min())
     max_year = int(panel["prediction_year"].max())
-    year_range = st.slider("Prediction year", min_year, max_year, (max(min_year, 2009), min(max_year, 2024)))
+    year_range = st.slider("Prediction year", min_year, max_year, (max(min_year, 2009), max_year))
 
 filtered = panel[
     panel["Sector"].isin(selected_sectors)
