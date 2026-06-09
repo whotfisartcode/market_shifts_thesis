@@ -38,7 +38,7 @@ TARGET_INFO = [
         "role": "Main downside factor-analysis outcome",
     },
     {
-        "label": "Success / resilience",
+        "label": "Success/resilience",
         "column": "success_resilience_next_4q",
         "tier": "Primary",
         "role": "Main upside factor-analysis outcome",
@@ -192,8 +192,8 @@ TARGET_TIMELINE_COLUMNS = [
 
 OUTCOME_CATEGORY_ORDER = [
     "Strict legal distress",
-    "Broader pressure, no legal distress",
-    "Success / resilience",
+    "Broader failure pressure, no legal distress",
+    "Success/resilience",
     "Neutral / surviving",
     "Unknown future horizon",
 ]
@@ -300,10 +300,62 @@ METADATA_COLUMNS = {
     "shortname",
 }
 
+TARGET_TABLE_LABELS = {
+    "tier": "Tier",
+    "target_label": "Target",
+    "target": "Column",
+    "role": "Defense role",
+    "rows": "Filtered rows",
+    "known_rows": "Known target rows",
+    "missing_rows": "Missing rows",
+    "coverage": "Coverage",
+    "positives": "Positive rows",
+    "positive_share_known": "Positive share of known rows",
+}
+
+METRIC_LABEL_OVERRIDES = {
+    "roa": "ROA",
+    "FEDFUNDS": "Fed funds rate",
+    "GS10": "10-year Treasury",
+    "T10Y2Y": "10Y-2Y Treasury spread",
+    "T10Y3M": "10Y-3M Treasury spread",
+    "BAMLH0A0HYM2": "High-yield credit spread",
+    "NFCI": "Financial conditions index",
+    "M2SL": "M2 money stock",
+    "CPIAUCSL": "CPI",
+    "PPIACO": "PPI",
+    "UNRATE": "Unemployment rate",
+    "PAYEMS": "Nonfarm payrolls",
+    "RSAFS": "Retail sales",
+    "HOUST": "Housing starts",
+    "INDPRO": "Industrial production",
+    "GDPC1": "Real GDP",
+    "VIXCLS": "VIX",
+    "DCOILWTICO": "WTI crude oil",
+    "DTWEXBGS": "Trade-weighted dollar",
+    "USEPUINDXD": "Economic policy uncertainty",
+}
+
 
 st.set_page_config(
-    page_title="Market Shifts Distress Dashboard",
+    page_title="Market Shifts Distress and Resilience Dashboard",
     layout="wide",
+)
+
+st.markdown(
+    """
+    <style>
+    .defense-target-count {
+        font-size: clamp(1.15rem, 1.55vw, 1.55rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin: -0.15rem 0 0.35rem;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
 
@@ -384,15 +436,53 @@ def format_number(value: object, digits: int = 3) -> str:
     return str(value)
 
 
+def format_percent(value: object, digits: int = 1) -> str:
+    if pd.isna(value):
+        return "n/a"
+    return f"{float(value):.{digits}%}"
+
+
+def target_count_stats(frame: pd.DataFrame, target: str) -> dict[str, int | float]:
+    values = pd.to_numeric(frame[target], errors="coerce")
+    known = int(values.notna().sum())
+    positives = int(values.fillna(0).sum())
+    missing = int(values.isna().sum())
+    return {
+        "known": known,
+        "positives": positives,
+        "missing": missing,
+        "positive_share_known": positives / known if known else np.nan,
+    }
+
+
+def target_metric_card(label: str, frame: pd.DataFrame, target: str) -> None:
+    stats = target_count_stats(frame, target)
+    st.caption(label)
+    st.markdown(
+        f"<div class='defense-target-count'>{stats['positives']:,} / {stats['known']:,}</div>",
+        unsafe_allow_html=True,
+    )
+    coverage_note = (
+        "full target coverage"
+        if stats["missing"] == 0
+        else f"{stats['missing']:,} rows outside the known future horizon"
+    )
+    st.caption(f"{format_percent(stats['positive_share_known'])} positive rate among known rows; {coverage_note}.")
+
+
 def display_target_table(frame: pd.DataFrame, height: int = 300) -> None:
     if frame.empty:
         st.info("No target rows available for the current selection.")
         return
     display = frame.copy()
+    for col in ["rows", "known_rows", "missing_rows", "positives"]:
+        if col in display.columns:
+            display[col] = display[col].map(lambda value: "n/a" if pd.isna(value) else f"{int(value):,}")
     for col in ["coverage", "positive_share_known"]:
         if col in display.columns:
             display[col] = display[col].map(lambda value: "n/a" if pd.isna(value) else f"{value:.1%}")
-    st.dataframe(display, width="stretch", height=height, hide_index=True)
+    display = display.rename(columns=TARGET_TABLE_LABELS)
+    st.dataframe(display, width=1200, height=height, hide_index=True)
 
 
 def metric_card(label: str, value: str) -> None:
@@ -426,6 +516,8 @@ def numeric_columns(frame: pd.DataFrame, *, exclude: set[str] | None = None) -> 
 
 
 def metric_label(column: str) -> str:
+    if column in METRIC_LABEL_OVERRIDES:
+        return METRIC_LABEL_OVERRIDES[column]
     return column.replace("_", " ").replace("yoy pct", "YoY %").title()
 
 
@@ -482,6 +574,39 @@ def chart_x_type(series: pd.Series, *, bar: bool = False) -> str:
     return "N"
 
 
+def finite_numeric_domain(series: pd.Series, *, include_zero: bool = False) -> list[float] | None:
+    values = pd.to_numeric(series, errors="coerce")
+    values = values[np.isfinite(values)]
+    if values.empty:
+        return None
+    low = float(values.min())
+    high = float(values.max())
+    if include_zero:
+        low = min(0.0, low)
+        high = max(0.0, high)
+    if low == high:
+        padding = abs(low) * 0.05 or 1.0
+        low -= padding
+        high += padding
+    return [low, high]
+
+
+def finite_x_domain(series: pd.Series, x_type: str) -> list[object] | None:
+    if x_type == "T":
+        values = pd.to_datetime(series, errors="coerce").dropna()
+        if values.empty:
+            return None
+        low = values.min()
+        high = values.max()
+        if low == high:
+            low -= pd.Timedelta(days=1)
+            high += pd.Timedelta(days=1)
+        return [low, high]
+    if x_type == "Q":
+        return finite_numeric_domain(series)
+    return None
+
+
 def chart_with_index(data: pd.DataFrame, x: str | None) -> tuple[pd.DataFrame, str]:
     frame = data.copy()
     if x is not None:
@@ -519,12 +644,18 @@ def line_chart_safe(data: pd.DataFrame, *, x: str | None = None, y: str | list[s
         st.info("No chartable numeric observations for the current selection.")
         return
     x_type = chart_x_type(long[x_column], bar=False)
+    x_domain = finite_x_domain(long[x_column], x_type)
+    y_domain = finite_numeric_domain(long["value"])
     chart = (
         alt.Chart(long)
         .mark_line()
         .encode(
-            x=alt.X(f"{x_column}:{x_type}", title=metric_label(x_column)),
-            y=alt.Y("value:Q", title="Value"),
+            x=alt.X(
+                f"{x_column}:{x_type}",
+                title=metric_label(x_column),
+                scale=alt.Scale(domain=x_domain) if x_domain else alt.Undefined,
+            ),
+            y=alt.Y("value:Q", title="Value", scale=alt.Scale(domain=y_domain) if y_domain else alt.Undefined),
             color=alt.Color("metric_label:N", title="Metric"),
             tooltip=[
                 alt.Tooltip(f"{x_column}:{x_type}", title=metric_label(x_column)),
@@ -534,7 +665,7 @@ def line_chart_safe(data: pd.DataFrame, *, x: str | None = None, y: str | list[s
         )
         .properties(width=900, height=height or 300)
     )
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart)
 
 
 def bar_chart_safe(
@@ -544,6 +675,7 @@ def bar_chart_safe(
     y: str | list[str] | None = None,
     color: str | None = None,
     height: int | None = None,
+    stack: bool = False,
 ) -> None:
     chart_data, y_columns = clean_chart_data(data, y=y, x=x)
     if chart_data.empty or not y_columns:
@@ -563,9 +695,19 @@ def bar_chart_safe(
         st.info("No chartable numeric observations for the current selection.")
         return
     x_type = chart_x_type(chart_data[x_column], bar=True)
+    if stack:
+        y_values = pd.to_numeric(chart_data[y_column], errors="coerce")
+        y_domain = [0.0, 1.0] if y_values.between(0, 1).all() else None
+    else:
+        y_domain = finite_numeric_domain(chart_data[y_column], include_zero=True)
     encodings = {
         "x": alt.X(f"{x_column}:{x_type}", title=metric_label(x_column)),
-        "y": alt.Y(f"{y_column}:Q", title=metric_label(y_column)),
+        "y": alt.Y(
+            f"{y_column}:Q",
+            title=metric_label(y_column),
+            stack="zero" if stack else None,
+            scale=alt.Scale(domain=y_domain) if y_domain else alt.Undefined,
+        ),
         "tooltip": [
             alt.Tooltip(f"{x_column}:{x_type}", title=metric_label(x_column)),
             alt.Tooltip(f"{y_column}:Q", title=metric_label(y_column), format=",.4g"),
@@ -574,8 +716,10 @@ def bar_chart_safe(
     if color_column is not None and color_column in chart_data.columns:
         encodings["color"] = alt.Color(f"{color_column}:N", title=metric_label(color_column))
         encodings["tooltip"].append(alt.Tooltip(f"{color_column}:N", title=metric_label(color_column)))
+        if not stack:
+            encodings["xOffset"] = alt.XOffset(f"{color_column}:N", title=None)
     chart = alt.Chart(chart_data).mark_bar().encode(**encodings).properties(width=900, height=height or 300)
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart)
 
 
 def context_metric_columns() -> set[str]:
@@ -692,8 +836,8 @@ def add_outcome_category(frame: pd.DataFrame) -> pd.DataFrame:
 
     category = pd.Series("Unknown future horizon", index=out.index, dtype="object")
     category[known_failure & known_success & ~strict & ~failure & ~success] = "Neutral / surviving"
-    category[success & ~strict & ~failure] = "Success / resilience"
-    category[failure & ~strict] = "Broader pressure, no legal distress"
+    category[success & ~strict & ~failure] = "Success/resilience"
+    category[failure & ~strict] = "Broader failure pressure, no legal distress"
     category[strict] = "Strict legal distress"
     out["outcome_category"] = pd.Categorical(category, categories=OUTCOME_CATEGORY_ORDER, ordered=True)
     return out
@@ -715,13 +859,32 @@ feature_directions = load_optional_csv(FEATURE_DIRECTION_PATH)
 target_lab_groups = load_optional_csv(TARGET_LAB_GROUP_PATH)
 
 st.title("Market Shifts: Firm Distress and Resilience")
+st.caption(
+    "Historical thesis artifact using sidebar-filtered panel rows. Target rates use known-row denominators, "
+    "which differ by target because future outcome horizons are not always observable."
+)
+st.info(
+    "Research boundary: inspection of saved thesis data only. "
+    "No live prediction, causal proof, external validation, or operational decisions.",
+)
 
 with st.sidebar:
     st.header("Filters")
     sectors = sorted(x for x in panel["Sector"].dropna().unique())
     cohorts = sorted(x for x in panel["cohort"].dropna().unique())
-    selected_sectors = st.multiselect("Sector", sectors, default=sectors)
-    selected_cohorts = st.multiselect("Cohort", cohorts, default=cohorts)
+    use_all_sectors = st.checkbox("All sectors", value=True)
+    if use_all_sectors:
+        selected_sectors = sectors
+        st.caption(f"All {len(sectors)} sectors included.")
+    else:
+        selected_sectors = st.multiselect("Sector", sectors, default=sectors)
+
+    use_all_cohorts = st.checkbox("All cohorts", value=True)
+    if use_all_cohorts:
+        selected_cohorts = cohorts
+        st.caption(f"All {len(cohorts)} cohorts included.")
+    else:
+        selected_cohorts = st.multiselect("Cohort", cohorts, default=cohorts)
     min_year = int(panel["prediction_year"].min())
     max_year = int(panel["prediction_year"].max())
     year_range = st.slider("Prediction year", min_year, max_year, (max(min_year, 2009), max_year))
@@ -737,8 +900,8 @@ if filtered.empty:
     st.warning("No rows match the current sidebar filters. Adjust sectors, cohorts, or prediction years to restore the dashboard views.")
     st.stop()
 
-overview, data_tab, models_tab, target_lab_tab, firms_tab, artifact_tab = st.tabs(
-    ["Overview", "Data Coverage", "Models", "Target Lab", "Firm Explorer", "Artifact Notes"]
+overview, data_tab, models_tab, target_evidence_tab, firms_tab, artifact_tab = st.tabs(
+    ["Overview", "Data Coverage", "Models", "Target Evidence", "Firm Explorer", "Artifact Notes"]
 )
 
 with overview:
@@ -748,41 +911,54 @@ with overview:
     with c2:
         metric_card("Firms", f"{filtered['cik'].nunique():,}")
     with c3:
-        metric_card("Strict distress positives", f"{int(filtered['distress_next_4q'].sum()):,}")
-    with c4:
-        metric_card("Failure-pressure positives", f"{int(filtered['failure_pressure_conservative_v2_next_4obs'].fillna(0).sum()):,}")
-
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        metric_card("Success positives", f"{int(filtered['success_resilience_next_4q'].fillna(0).sum()):,}")
-    with c2:
-        known_failure = int(filtered["failure_pressure_conservative_v2_next_4obs"].notna().sum())
-        metric_card("Failure target observed", f"{known_failure:,}")
-    with c3:
-        known_success = int(filtered["success_resilience_next_4q"].notna().sum())
-        metric_card("Success target observed", f"{known_success:,}")
-    with c4:
-        unknown_outcome = int((filtered["outcome_category"] == "Unknown future horizon").sum())
-        metric_card("Unknown outcome horizon", f"{unknown_outcome:,}")
-
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        neutral_rows = int((filtered["outcome_category"] == "Neutral / surviving").sum())
-        metric_card("Neutral / surviving", f"{neutral_rows:,}")
-    with c2:
         text_value(
             "Prediction window",
             f"{filtered['prediction_date'].min().date()} to {filtered['prediction_date'].max().date()}",
         )
-    with c3:
-        failure_coverage = filtered["failure_pressure_conservative_v2_next_4obs"].notna().mean()
-        metric_card("Failure target coverage", f"{failure_coverage:.1%}")
     with c4:
-        success_coverage = filtered["success_resilience_next_4q"].notna().mean()
-        metric_card("Success target coverage", f"{success_coverage:.1%}")
+        unknown_outcome = int((filtered["outcome_category"] == "Unknown future horizon").sum())
+        metric_card("Unknown future horizon", f"{unknown_outcome:,}")
+
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        target_metric_card("Strict legal distress", filtered, "distress_next_4q")
+    with c2:
+        target_metric_card("Broader failure pressure", filtered, "failure_pressure_conservative_v2_next_4obs")
+    with c3:
+        target_metric_card("Success/resilience", filtered, "success_resilience_next_4q")
+    with c4:
+        neutral_rows = int((filtered["outcome_category"] == "Neutral / surviving").sum())
+        metric_card("Neutral / surviving rows", f"{neutral_rows:,}")
+        st.caption("Mutually exclusive current outcome category, not an independent target rate.")
+
+    primary_summary = target_summary(filtered, PRIMARY_TARGETS)
+    st.subheader("Final Thesis Target Hierarchy")
+    st.caption(
+        "These are the three final thesis targets used in the defense. Counts are recalculated after sidebar filters; "
+        "canonical unfiltered counts remain in the thesis tables and defense slides. Positive shares always use known "
+        "target rows as the denominator. These are descriptive counts, not alerts."
+    )
+    display_target_table(
+        primary_summary[
+            [
+                "target_label",
+                "role",
+                "known_rows",
+                "missing_rows",
+                "coverage",
+                "positives",
+                "positive_share_known",
+            ]
+        ],
+        height=155,
+    )
 
     secondary_summary = target_summary(filtered, VALIDATED_SECONDARY_TARGETS)
     st.subheader("Validated Secondary Outcomes")
+    st.caption(
+        "Secondary outcomes support interpretation and stress-testing. They are not replacements for the three "
+        "primary thesis targets."
+    )
     display_target_table(
         secondary_summary[
             [
@@ -799,6 +975,10 @@ with overview:
     )
 
     st.subheader("Outcome Composition by Year")
+    st.caption(
+        "This view is mutually exclusive: each row is assigned to one category, with strict legal distress taking "
+        "precedence over broader failure pressure and success/resilience."
+    )
     outcome_yearly = (
         filtered.groupby(["prediction_year", "outcome_category"], observed=False)
         .size()
@@ -807,9 +987,13 @@ with overview:
     )
     outcome_totals = outcome_yearly.groupby("prediction_year")["rows"].transform("sum")
     outcome_yearly["share"] = outcome_yearly["rows"] / outcome_totals
-    bar_chart_safe(outcome_yearly, x="prediction_year", y="share", color="outcome_category")
+    bar_chart_safe(outcome_yearly, x="prediction_year", y="share", color="outcome_category", stack=True)
 
     st.subheader("Target Coverage by Year")
+    st.caption(
+        "Coverage is the share of filtered rows with enough future horizon to label the target. Late panel years "
+        "naturally have more unknown future outcomes."
+    )
     coverage_yearly = (
         filtered.groupby("prediction_year")
         .agg(
@@ -886,43 +1070,77 @@ with overview:
             .reset_index()
         )
         outcome_mix["share"] = outcome_mix["rows"] / outcome_mix["rows"].sum()
-        st.dataframe(outcome_mix, width="stretch", height=250)
+        st.dataframe(outcome_mix, width=1200, height=250)
 
 with data_tab:
     st.subheader("Dataset Snapshot")
-    st.dataframe(
-        filtered[
-            [
-                "ticker",
-                "name",
-                "cohort",
-                "Sector",
-                "period_date",
-                "filed_date",
-                "prediction_date",
-                "form",
-                "total_assets",
-                "total_revenue",
-                "net_income",
-                "leverage_assets",
-                "roa",
-                "FEDFUNDS",
-                "VIXCLS",
-                "distress_next_4q",
-                "failure_pressure_conservative_v2_next_4obs",
-                "success_resilience_next_4q",
-                "industry_relative_resilience_next_4obs",
-                "stress_resilience_next_4obs",
-                "recovery_next_4obs",
-                "quality_success_cashflow_next_4obs",
-                "post_event_flag",
-            ]
-        ].sort_values(["prediction_date", "ticker"], ascending=[False, True]),
-        width="stretch",
-        height=420,
+    st.caption(
+        "Raw panel observations after sidebar filters. Missing values are preserved here; modeling-stage imputation "
+        "is handled separately inside the training pipelines."
     )
+    snapshot_columns = [
+        "ticker",
+        "name",
+        "cohort",
+        "Sector",
+        "period_date",
+        "filed_date",
+        "prediction_date",
+        "form",
+        "total_assets",
+        "total_revenue",
+        "net_income",
+        "leverage_assets",
+        "roa",
+        "FEDFUNDS",
+        "VIXCLS",
+        "distress_next_4q",
+        "failure_pressure_conservative_v2_next_4obs",
+        "success_resilience_next_4q",
+        "industry_relative_resilience_next_4obs",
+        "stress_resilience_next_4obs",
+        "recovery_next_4obs",
+        "quality_success_cashflow_next_4obs",
+        "post_event_flag",
+    ]
+    snapshot_labels = {
+        "ticker": "Ticker",
+        "name": "Company",
+        "cohort": "Cohort",
+        "period_date": "Period date",
+        "filed_date": "Filed date",
+        "prediction_date": "Prediction date",
+        "form": "SEC form",
+        "total_assets": "Total assets",
+        "total_revenue": "Total revenue",
+        "net_income": "Net income",
+        "leverage_assets": "Leverage / assets",
+        "roa": "ROA",
+        "FEDFUNDS": "Fed funds rate",
+        "VIXCLS": "VIX",
+        "distress_next_4q": "Strict legal distress next 4q",
+        "failure_pressure_conservative_v2_next_4obs": "Broader failure pressure",
+        "success_resilience_next_4q": "Success/resilience",
+        "industry_relative_resilience_next_4obs": "Industry-relative resilience",
+        "stress_resilience_next_4obs": "Stress resilience",
+        "recovery_next_4obs": "Recovery",
+        "quality_success_cashflow_next_4obs": "Cash-flow quality success",
+        "post_event_flag": "Post-event flag",
+    }
+    snapshot = (
+        filtered[snapshot_columns]
+        .sort_values(["prediction_date", "ticker"], ascending=[False, True])
+        .rename(columns=snapshot_labels)
+    )
+    for date_column in ["Period date", "Filed date", "Prediction date"]:
+        snapshot[date_column] = pd.to_datetime(snapshot[date_column], errors="coerce").dt.strftime("%Y-%m-%d")
+    st.dataframe(snapshot, width=1200, height=420)
 
     st.subheader("Missingness in Filtered Data")
+    st.caption(
+        "Highest-missingness fields in the current filter. Sparse event-audit fields are expected because most "
+        "firm-quarters are not tied to a verified event; missing target values usually reflect unavailable future horizons."
+    )
     missing = (
         filtered.isna()
         .mean()
@@ -932,17 +1150,27 @@ with data_tab:
         .sort_values("missing_share", ascending=False)
         .head(25)
     )
-    st.dataframe(missing, width="stretch", height=360)
+    missing["field"] = missing["column"].map(metric_label)
+    missing["missing_share"] = missing["missing_share"].map(lambda value: f"{value:.1%}")
+    st.dataframe(
+        missing[["field", "column", "missing_share"]].rename(
+            columns={"field": "Field", "column": "Raw column", "missing_share": "Missing share"}
+        ),
+        width=1200,
+        height=360,
+        hide_index=True,
+    )
 
 with models_tab:
-    st.subheader("Production Target Hierarchy")
+    st.subheader("Final Thesis Target Hierarchy")
+    st.caption("The model tab keeps raw column names visible so each displayed result can be traced back to a generated artifact.")
     hierarchy = pd.DataFrame(TARGET_INFO)
-    st.dataframe(hierarchy[["tier", "label", "column", "role"]], width="stretch", hide_index=True, height=285)
+    st.dataframe(hierarchy[["tier", "label", "column", "role"]], width=1200, hide_index=True, height=285)
 
     st.subheader("Temporal Split")
     if not splits.empty:
         selected_split_target = st.selectbox("Target", ordered_target_labels(splits["target_label"].unique()))
-        st.dataframe(splits[splits["target_label"] == selected_split_target], width="stretch")
+        st.dataframe(splits[splits["target_label"] == selected_split_target], width=1200)
     else:
         st.info("Run scripts/modeling/train_panel_v2_models.py to generate split outputs.")
 
@@ -950,28 +1178,37 @@ with models_tab:
     if not metrics.empty:
         metric_target = st.selectbox("Metric target", ordered_target_labels(metrics["target_label"].unique()))
         metric_view = metrics[metrics["target_label"] == metric_target]
-        st.dataframe(metric_view.sort_values(["split", "pr_auc"], ascending=[True, False]), width="stretch")
+        st.caption(
+            "Rows and positives are split-specific. Test metrics are the defense-facing historical holdout evidence, "
+            "not live probabilities."
+        )
+        st.dataframe(metric_view.sort_values(["split", "pr_auc"], ascending=[True, False]), width=1200)
         test_metrics = metric_view[metric_view["split"] == "test"].sort_values("pr_auc", ascending=False)
         bar_chart_safe(test_metrics, x="model", y="pr_auc")
     else:
         st.info("Model metrics are not available yet.")
 
     st.subheader("Top Features")
+    st.caption("Feature importance describes selected-model behavior under the target definition; it is not causal evidence.")
     if not importance.empty:
         importance_target = st.selectbox("Feature target", ordered_target_labels(importance["target_label"].unique()))
         importance_view = importance[importance["target_label"] == importance_target]
         selected_model = st.selectbox("Model", sorted(importance_view["model"].unique()))
         top = importance_view[importance_view["model"] == selected_model].sort_values("importance", ascending=False).head(20)
         bar_chart_safe(top, x="feature", y="importance")
-        st.dataframe(top, width="stretch")
+        st.dataframe(top, width=1200)
     else:
         st.info("Feature importance outputs are not available yet.")
 
-with target_lab_tab:
-    st.subheader("Production Target Coverage")
-    production_summary = target_summary(filtered, list(TARGETS.values()))
+with target_evidence_tab:
+    st.caption(
+        "Target Evidence shows final thesis targets, calibration/ranking diagnostics, and validated secondary evidence. "
+        "Traceability tables are kept in the final expander and are not defense-facing claims."
+    )
+    st.subheader("Final Thesis Target Coverage")
+    target_evidence_summary = target_summary(filtered, list(TARGETS.values()))
     display_target_table(
-        production_summary[
+        target_evidence_summary[
             [
                 "tier",
                 "target_label",
@@ -985,13 +1222,13 @@ with target_lab_tab:
         ],
         height=320,
     )
-    if not production_summary.empty:
-        chart_data = production_summary[["target_label", "coverage", "positive_share_known", "tier"]].copy()
+    if not target_evidence_summary.empty:
+        chart_data = target_evidence_summary[["target_label", "coverage", "positive_share_known", "tier"]].copy()
         bar_chart_safe(chart_data, x="target_label", y=["coverage", "positive_share_known"], color="tier")
 
     st.subheader("Calibration And Ranking")
-    production_targets = set(TARGETS.values())
-    calibration_view = calibration_metrics[calibration_metrics["target"].isin(production_targets)].copy()
+    final_target_columns = set(TARGETS.values())
+    calibration_view = calibration_metrics[calibration_metrics["target"].isin(final_target_columns)].copy()
     if not calibration_view.empty:
         calibration_labels = [
             item["label"] for item in TARGET_INFO if item["column"] in set(calibration_view["target"].astype(str))
@@ -1022,13 +1259,14 @@ with target_lab_tab:
             c4.metric("ECE 10-bin", format_number(selected.get("expected_calibration_error_10bin")))
             c5.metric("Test positives", f"{int(selected.get('positives', 0)):,}")
             st.caption(
-                f"Selected model: {selected.get('model')} with {selected.get('calibrator')}; selection uses validation period only."
+                f"Selected model: {selected.get('model')} with {selected.get('calibrator')}; selection uses validation period only. "
+                "Calibrated scores are historical diagnostics, not guaranteed live event probabilities."
             )
         calibration_table = calibration_view[
             calibration_view["target"].eq(selected_calibration_target)
             & calibration_view["split"].isin(["validation", "test"])
         ].sort_values(["split", "brier_score"])
-        st.dataframe(calibration_table, width="stretch", height=260)
+        st.dataframe(calibration_table, width=1200, height=260)
 
         ranking_view = threshold_metrics[
             threshold_metrics["target"].eq(selected_calibration_target)
@@ -1042,7 +1280,8 @@ with target_lab_tab:
                 ranking_view["model"].eq(selected_model) & ranking_view["calibrator"].eq(selected_calibrator)
             ]
         if not ranking_view.empty:
-            st.subheader("Top-Ranked Review Thresholds")
+            st.subheader("Top-Ranked Inspection Thresholds")
+            st.caption("Top-rank thresholds show historical prioritization evidence; they are not operational alert rules.")
             st.dataframe(
                 ranking_view[
                     [
@@ -1055,7 +1294,7 @@ with target_lab_tab:
                         "lift_vs_base_rate",
                     ]
                 ],
-                width="stretch",
+                width=1200,
                 height=180,
                 hide_index=True,
             )
@@ -1064,6 +1303,7 @@ with target_lab_tab:
         st.info("Calibration and ranking outputs are not available yet.")
 
     st.subheader("Validated Secondary Reasons And Feature Evidence")
+    st.caption("Reason, feature, and direction summaries are association diagnostics, not causal explanations.")
     available_reason_targets = set(reason_codes["target"].astype(str)) if not reason_codes.empty else set()
     secondary_labels = [item["label"] for item in TARGET_INFO if item["column"] in available_reason_targets]
     if secondary_labels:
@@ -1090,7 +1330,7 @@ with target_lab_tab:
                     "interpretation_note",
                 ]
             ],
-            width="stretch",
+            width=1200,
             height=280,
             hide_index=True,
         )
@@ -1104,7 +1344,7 @@ with target_lab_tab:
             ].sort_values("importance_share", ascending=False)
         if not group_view.empty:
             st.subheader("Feature Group Shares")
-            st.dataframe(group_view, width="stretch", height=220, hide_index=True)
+            st.dataframe(group_view, width=1200, height=220, hide_index=True)
             bar_chart_safe(group_view, x="feature_group", y="importance_share")
 
         level_view = pd.DataFrame()
@@ -1125,7 +1365,7 @@ with target_lab_tab:
                         "selected_calibrator",
                     ]
                 ].head(25),
-                width="stretch",
+                width=1200,
                 height=340,
                 hide_index=True,
             )
@@ -1151,14 +1391,18 @@ with target_lab_tab:
                         "direction_interpretation",
                     ]
                 ].head(25),
-                width="stretch",
+                width=1200,
                 height=340,
                 hide_index=True,
             )
     else:
-        st.info("Reason-code and feature-level target-lab outputs are not available yet.")
+        st.info("Reason-code and feature-level target-evidence outputs are not available yet.")
 
-    with st.expander("Target and feature-set experiment summaries"):
+    with st.expander("Traceability tables, not defense claims"):
+        st.caption(
+            "These development summaries are retained only for traceability. Final defense claims use the final thesis targets, "
+            "validated secondary outcomes, and saved modeling outputs shown above."
+        )
         if not target_tweaks.empty:
             display_cols = [
                 "target",
@@ -1172,7 +1416,7 @@ with target_lab_tab:
                 "f1_mean",
             ]
             available = [col for col in display_cols if col in target_tweaks.columns]
-            st.dataframe(target_tweaks[available].sort_values("pr_auc_mean", ascending=False), width="stretch")
+            st.dataframe(target_tweaks[available].sort_values("pr_auc_mean", ascending=False), width=1200)
         if not feature_ablation.empty:
             targets = sorted(feature_ablation["target"].dropna().unique())
             selected_target = st.selectbox("Ablation target", targets)
@@ -1180,18 +1424,19 @@ with target_lab_tab:
                 "pr_auc_mean",
                 ascending=False,
             )
-            st.dataframe(ablation_view, width="stretch", height=280)
+            st.dataframe(ablation_view, width=1200, height=280)
         if not factor_groups.empty:
             factor_targets = sorted(factor_groups["target"].dropna().unique())
-            selected_factor_target = st.selectbox("Legacy factor target", factor_targets)
+            selected_factor_target = st.selectbox("Traceability factor target", factor_targets)
             factor_view = factor_groups[factor_groups["target"] == selected_factor_target].sort_values(
                 "importance_share",
                 ascending=False,
             )
-            st.dataframe(factor_view, width="stretch", height=260)
+            st.dataframe(factor_view, width=1200, height=260)
 
 with firms_tab:
     st.subheader("Firm Explorer")
+    st.caption("Firm paths are examples for inspection. A single company trajectory is not proof of the whole framework.")
     tickers = sorted(x for x in filtered["ticker"].dropna().unique())
     default_ticker_index = tickers.index("AAPL") if "AAPL" in tickers else 0
     selected_ticker = st.selectbox("Ticker", tickers, index=default_ticker_index)
@@ -1215,14 +1460,11 @@ with firms_tab:
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        metric_card("Strict distress observations", f"{int(firm['distress_next_4q'].fillna(0).sum()):,}")
+        target_metric_card("Strict legal distress", firm, "distress_next_4q")
     with c2:
-        metric_card(
-            "Failure-pressure observations",
-            f"{int(firm['failure_pressure_conservative_v2_next_4obs'].fillna(0).sum()):,}",
-        )
+        target_metric_card("Broader failure pressure", firm, "failure_pressure_conservative_v2_next_4obs")
     with c3:
-        metric_card("Success observations", f"{int(firm['success_resilience_next_4q'].fillna(0).sum()):,}")
+        target_metric_card("Success/resilience", firm, "success_resilience_next_4q")
 
     firm_secondary_summary = target_summary(firm, VALIDATED_SECONDARY_TARGETS)
     if not firm_secondary_summary.empty:
@@ -1387,7 +1629,7 @@ with firms_tab:
             ]
             if not event_context.empty:
                 st.subheader("Readable Global Event Context")
-                st.dataframe(event_context.tail(20), width="stretch", height=260)
+                st.dataframe(event_context.tail(20), width=1200, height=260)
 
     with target_timeline_tab:
         st.subheader("Target Timeline")
@@ -1446,71 +1688,84 @@ with firms_tab:
             "quality_success_cashflow_next_4obs",
         ]
         visible_columns = available_columns(firm, visible_columns)
-        st.dataframe(firm[visible_columns].tail(20), width="stretch", height=420)
+        st.dataframe(firm[visible_columns].tail(20), width=1200, height=420)
 
 with artifact_tab:
     st.subheader("Artifact Description")
     st.write(
-        "This dashboard is the practical artifact of the thesis: an interactive analytical tool "
-        "for exploring strict legal distress, broader financial pressure, firm-level resilience, "
-        "and validated secondary outcomes across industries and macro-market regimes."
+        "This dashboard is the thesis research artifact for inspecting strict legal distress, broader failure "
+        "pressure, firm-level resilience, and validated secondary outcomes across industries and macro-market regimes."
     )
     st.subheader("Thesis Story")
-    st.dataframe(
-        pd.DataFrame(
-            [
-                {
-                    "step": "1. Panel",
-                    "meaning": "One firm-period observation is analyzed from the SEC filing date, not from the accounting period end date.",
-                },
-                {
-                    "step": "2. Targets",
-                    "meaning": "Strict distress, broader pressure, and success/resilience remain primary; four validated secondary outcomes add relative resilience, stress resilience, recovery, and cash-flow-supported success dimensions.",
-                },
-                {
-                    "step": "3. Factors",
-                    "meaning": "Firm fundamentals, ratios, and deterioration are interpreted first; macro regimes and events provide market-shift context.",
-                },
-                {
-                    "step": "4. Artifact",
-                    "meaning": "The dashboard is a historical decision-support artifact, not a live trading or bankruptcy oracle.",
-                },
-            ]
+    thesis_story = [
+        (
+            "1. Panel",
+            "One firm-period observation is analyzed from the SEC filing date, not from the accounting period end date.",
         ),
-        width="stretch",
-        hide_index=True,
-    )
+        (
+            "2. Targets",
+            "Strict legal distress, broader failure pressure, and success/resilience remain primary; four validated secondary outcomes add relative resilience, stress resilience, recovery, and cash-flow-supported success dimensions.",
+        ),
+        (
+            "3. Factors",
+            "Firm fundamentals, ratios, and deterioration are interpreted first; macro regimes and events provide market-shift context.",
+        ),
+        (
+            "4. Artifact",
+            "The dashboard is a historical decision-support artifact, not a live trading system, operational score, or bankruptcy prediction product.",
+        ),
+    ]
+    for step, meaning in thesis_story:
+        st.markdown(f"**{step}:** {meaning}")
+
     st.subheader("Caveat Controls")
+    caveat_controls = [
+        (
+            "Strict legal distress event dates",
+            "Source-verified events are separated from manual-review candidate rows; strict legal distress is treated as a benchmark.",
+        ),
+        (
+            "SEC accounting concepts",
+            "Concept mapping, qtrs handling, missingness, and selected-fact provenance are handled by the panel rebuild scripts and generated local audit outputs.",
+        ),
+        (
+            "Null values",
+            "Raw panel nulls are preserved; imputation happens only inside modeling pipelines.",
+        ),
+        (
+            "Duplicates/amendments",
+            "Duplicate/amendment cases are audited separately; the saved thesis panel is not manually edited.",
+        ),
+        (
+            "Interpretation",
+            "Reason codes, feature groups, and direction summaries describe associations on temporal test data, not causal mechanisms.",
+        ),
+    ]
+    for caveat, control in caveat_controls:
+        st.markdown(f"**{caveat}:** {control}")
+
+    st.subheader("Packaged Reference Files")
+    reference_files = [
+        ("Core dataset", PANEL_PATH),
+        ("Model metrics", METRICS_PATH),
+        ("Dashboard inputs", ROOT / "DASHBOARD_INPUTS.md"),
+        ("Master explainer", ROOT / "docs/MASTER_DATA_MODEL_TARGET_EXPLAINER.md"),
+        ("Caveat register", ROOT / "docs/FINAL_CAVEAT_RESOLUTION_REGISTER.md"),
+        ("Reports README", ROOT / "reports/README.md"),
+    ]
     st.dataframe(
         pd.DataFrame(
             [
                 {
-                    "caveat": "Strict distress event dates",
-                    "control": "Source-verified events are separated from REVIEW rows; strict distress is treated as a benchmark.",
-                },
-                {
-                    "caveat": "SEC accounting concepts",
-                    "control": "Concept mapping, qtrs handling, missingness, and selected-fact provenance are handled by the panel rebuild scripts and generated local audit outputs.",
-                },
-                {
-                    "caveat": "Null values",
-                    "control": "Raw panel nulls are preserved; imputation happens only inside modeling pipelines.",
-                },
-                {
-                    "caveat": "Duplicates/amendments",
-                    "control": "Duplicate/amendment cases are audited separately; the production panel is not manually edited.",
-                },
-                {
-                    "caveat": "Interpretation",
-                    "control": "Reason codes, feature groups, and direction summaries describe associations on temporal test data, not causal mechanisms.",
-                },
+                    "Reference": label,
+                    "Path": str(path.relative_to(ROOT)),
+                    "Status": "Available" if path.exists() else "Missing",
+                }
+                for label, path in reference_files
             ]
         ),
-        width="stretch",
+        width=1200,
         hide_index=True,
     )
-    st.write("Core dataset:", str(PANEL_PATH.relative_to(ROOT)))
-    st.write("Model outputs:", str(METRICS_PATH.relative_to(ROOT)))
-    st.write("Master explainer:", "docs/MASTER_DATA_MODEL_TARGET_EXPLAINER.md")
-    st.write("Caveat register:", "docs/FINAL_CAVEAT_RESOLUTION_REGISTER.md")
+    st.caption("The dashboard reads packaged outputs and does not rewrite the panel, model reports, or thesis text.")
     st.write("The dashboard is designed to be reproducible from SEC Financial Statement Data Sets and FRED macro data.")

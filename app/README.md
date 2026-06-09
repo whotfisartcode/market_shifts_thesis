@@ -27,7 +27,7 @@ Dashboard views:
 - Overview with mutually exclusive outcome composition and target coverage,
 - Data Coverage with panel and missingness diagnostics,
 - Models with target-specific temporal metrics and feature importance,
-- Target Lab with target experiments, feature-set ablations, reason codes, and feature-direction summaries,
+- Target Evidence with final thesis target coverage, calibration/ranking diagnostics, validated secondary evidence, and traceability tables,
 - Firm Explorer with financial metrics, macro comparison, target timeline, and recent rows,
 - Artifact Notes for thesis/GitHub documentation.
 

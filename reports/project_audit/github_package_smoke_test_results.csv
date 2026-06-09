@@ -1,5 +1,5 @@
 check,status,detail
-python_version,INFO,"3.12.0 (v3.12.0:0fb18b02c8, Oct  2 2023, 09:45:56) [Clang 13.0.0 (clang-1300.0.29.30)]"
+python_version,INFO,"3.12.13 (main, Mar  3 2026, 15:35:03) [Clang 21.1.4 ]"
 import_pandas,PASS,
 import_numpy,PASS,
 import_pyarrow,PASS,
